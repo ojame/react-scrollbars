@@ -1,0 +1,21 @@
+@import "colors.scss";
+@import "fonts.scss";
+@import "typography.scss";
+
+html {
+  background: $secondary;
+  color: $main;
+  font-family: "montserrat", Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.App-content {
+  flex: 1;
+}
+
