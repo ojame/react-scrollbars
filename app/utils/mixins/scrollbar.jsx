@@ -6,6 +6,7 @@ var ScrollbarMixin = {
   getInitialState: function() {
     return {
       stickHeight: 0,
+      contentHeight: 0,
       stickPosition: 0,
       initialScrollTop: 0,
       initialPositionY: 0,
@@ -18,6 +19,7 @@ var ScrollbarMixin = {
   componentDidMount: function() {
     this.setState({
       stickHeight: this.getStickHeight(this.refs.scrollableContent.getDOMNode()),
+      contentHeight: this.getContentHeight(),
       showScrollbar: this.scrollbarRequired()
     });
 
@@ -42,6 +44,12 @@ var ScrollbarMixin = {
         showScrollbar: this.scrollbarRequired()
       });
     }
+
+    if (this.state.contentHeight !== this.getContentHeight()) {
+      this.setState({
+        contentHeight: this.getContentHeight()
+      });
+    }
   },
 
   getBoundingRect: function(element) {
@@ -57,6 +65,10 @@ var ScrollbarMixin = {
     return stickHeight;
   },
 
+  getContentHeight: function() {
+    return this.refs.scrollableContent.getDOMNode().clientHeight;
+  },
+
   setStickPosition: function(event) {
     var scrollTop = event.target.scrollTop;
     this.setState({
@@ -65,7 +77,7 @@ var ScrollbarMixin = {
   },
 
   scrollbarRequired: function() {
-    return this.refs.scrollableContent.getDOMNode().scrollHeight > this.refs.scrollableContent.getDOMNode().clientHeight;
+    return this.refs.scrollableContent.getDOMNode().scrollHeight > this.state.contentHeight;
   },
 
   handleScroll: function(event) {

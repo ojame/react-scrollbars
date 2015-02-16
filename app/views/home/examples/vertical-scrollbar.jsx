@@ -4,8 +4,16 @@ var ScrollbarMixin = require('./../../../utils/mixins/scrollbar.jsx');
 var OverflowContent = require('./../../../utils/components/overflow-content.jsx');
 var Scrollbar = require('./../../../utils/components/scrollbar.jsx');
 
+require('./vertical-scrollbar.scss');
+
 var VerticalScrollbar = React.createClass({
   mixins: [ScrollbarMixin],
+
+  getInitialState: function() {
+    return {
+      scrollbarOffset: 2
+    };
+  },
 
   render: function() {
     return (
@@ -31,7 +39,8 @@ var VerticalScrollbar = React.createClass({
             stickHeight={this.state.stickHeight}
             stickPosition={this.state.stickPosition}
             onMouseDown={this.handleMouseDown}
-            showScrollbar={this.state.showScrollbar} />
+            showScrollbar={this.state.showScrollbar}
+            offset={this.state.scrollbarOffset} />
         </div>
       </div>
     );

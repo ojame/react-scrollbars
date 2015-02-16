@@ -4,6 +4,8 @@ var ScrollbarMixin = require('./../../../utils/mixins/scrollbar.jsx');
 var OverflowContent = require('./../../../utils/components/overflow-content.jsx');
 var Scrollbar = require('./../../../utils/components/scrollbar.jsx');
 
+require('./no-vertical-scrollbar.scss');
+
 var VerticalScrollbar = React.createClass({
   mixins: [ScrollbarMixin],
 
