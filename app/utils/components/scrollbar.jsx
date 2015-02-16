@@ -4,7 +4,7 @@ React = require('react');
 var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
-      offset: 2,
+      offset: 0,
       stickHeight: 100,
       stickPosition: 0,
       showScrollbar: true
@@ -15,8 +15,8 @@ var Scrollbar = React.createClass({
     var bottom = this.props.offset;
     var height;
 
-    if (this.props.contentHeight) {
-      height = this.props.contentHeight - (this.props.offset * 2);
+    if (this.props.scrollbarHeight) {
+      height = this.props.scrollbarHeight;
     }
 
     var scrollbarStyle = {

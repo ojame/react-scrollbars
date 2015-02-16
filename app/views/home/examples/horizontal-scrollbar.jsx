@@ -23,13 +23,12 @@ var VerticalScrollbar = React.createClass({
           <img src="http://i.ytimg.com/vi/7RtDlXRkPuE/maxresdefault.jpg" />
 
           <Scrollbar
-            ref="scrollbar"
             stickHeight={this.state.stickHeight}
-            contentHeight={this.state.contentHeight}
+            scrollbarHeight={this.state.scrollbarHeight}
             stickPosition={this.state.stickPosition}
             onMouseDown={this.handleMouseDown}
             showScrollbar={this.state.showScrollbar}
-            offset={this.state.scrollbarsOffset} />
+            offset={this.state.scrollbarOffset} />
         </div>
       </div>
     );

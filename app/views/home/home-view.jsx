@@ -20,12 +20,12 @@ module.exports = React.createClass({
 
         <h2>Horizontal Scrollbars</h2>
         <HorizontalScrollbar />
-
+{/*
         <h2>Vertical Scrollbars</h2>
 
         <h3>Standard</h3>
         <VerticalScrollbar />
-{/*
+
         <hr />
 
         <h3>Content with padding</h3>

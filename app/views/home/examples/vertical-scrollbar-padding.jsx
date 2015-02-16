@@ -31,7 +31,6 @@ var VerticalScrollbar = React.createClass({
           </div>
 
           <Scrollbar
-            ref="scrollbar"
             stickHeight={this.state.stickHeight}
             stickPosition={this.state.stickPosition}
             onMouseDown={this.handleMouseDown}
