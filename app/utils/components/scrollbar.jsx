@@ -5,7 +5,8 @@ var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
       stickHeight: 100,
-      stickPosition: 0
+      stickPosition: 0,
+      showScrollbar: true
     };
   },
 
@@ -31,11 +32,17 @@ var Scrollbar = React.createClass({
       borderRadius: 4
     };
 
-    return (
-      <div style={scrollbarStyle}>
-        <div style={scrollbarStickStyle} onMouseDown={this.props.onMouseDown}></div>
-      </div>
-    );
+    if (this.props.showScrollbar) {
+      return (
+        <div style={scrollbarStyle}>
+          <div style={scrollbarStickStyle} onMouseDown={this.props.onMouseDown}></div>
+        </div>
+      )
+    } else {
+      return (
+        <div></div>
+      )
+    }
   }
 });
 

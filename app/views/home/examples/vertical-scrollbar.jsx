@@ -10,7 +10,7 @@ var VerticalScrollbar = React.createClass({
   render: function() {
     return (
       <div style={this.scrollbarContainerStyle()} className={this.containerClass()}>
-        <div style={this.scrollbarContentStyle()} ref="scrollableContent" onScroll={this.handleScroll}>
+        <div style={this.scrollbarContentStyle()} ref="scrollableContent" onScroll={this.handleScroll} className="ScrollbarContent--vertical">
           <p>Alex Woods (born October 7, 1982 in Houston, Texas) is an American soccer player, currently without a club. Woods played four years of college soccer at Trinity University. Undrafted out of college, Woods spent time with the reserve sides of FC Dallas and Houston Dynamo in Major League Soccer, featuring for both teams in the MLS Reserve Division, but never making a senior appearance for either team. After a brief stint with Charleston Battery in the USL First Division in 2005, Woods signed with Charlotte Eagles in 2007, and made his debut for the team on May 5, 2007, as a second half substitute in a game against Harrisburg City Islanders.</p>
           <p>Scott Johnson (born 1952) is an American composer known for his pioneering use of recorded speech as musical melody. He was the recipient of a 2006 Guggenheim fellowship. His 1982 work John Somebody for electric guitar and recorded speech is an early example of speech melody framed in tonal harmony. It is named for the prominent tape loop of a single female voice, repeating variations on the phrases Johnson`s early works were created long before the advent of digital music editing.</p>
           <p>Seminal works of the minimalist music by Steve Reich including It`s Gonna Rain (1965) and Come Out (1966) have been of major importance for Scott Johnson`s compositions using the speaking language and tape loops to produce music. Johnson is also known for his distinctive crossing of American vernacular and art music traditions, making extensive use of electric guitar in concert works, and adapting popular music structures for art music genres such as the string quartet.</p>
@@ -30,7 +30,8 @@ var VerticalScrollbar = React.createClass({
             ref="scrollbar"
             stickHeight={this.state.stickHeight}
             stickPosition={this.state.stickPosition}
-            onMouseDown={this.handleMouseDown} />
+            onMouseDown={this.handleMouseDown}
+            showScrollbar={this.state.showScrollbar} />
         </div>
       </div>
     );

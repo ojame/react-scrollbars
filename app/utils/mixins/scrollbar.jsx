@@ -10,13 +10,15 @@ var ScrollbarMixin = {
       initialScrollTop: 0,
       initialPositionY: 0,
       initialMovement: false,
-      scrolling: false
+      scrolling: false,
+      showScrollbar: true
     };
   },
 
   componentDidMount: function() {
     this.setState({
-      stickHeight: this.getStickHeight(this.refs.scrollableContent.getDOMNode())
+      stickHeight: this.getStickHeight(this.refs.scrollableContent.getDOMNode()),
+      showScrollbar: this.scrollbarRequired()
     });
 
     // This is a stupid hack, to get around: http://i.imgur.com/jEUO6l0.gif. TODO: remove it.
@@ -32,6 +34,12 @@ var ScrollbarMixin = {
     if (this.state.stickHeight !== newStickHeight) {
       this.setState({
         stickHeight: newStickHeight
+      });
+    }
+
+    if (this.state.showScrollbar !== this.scrollbarRequired()) {
+      this.setState({
+        showScrollbar: this.scrollbarRequired()
       });
     }
   },
@@ -54,6 +62,10 @@ var ScrollbarMixin = {
     this.setState({
       stickPosition: scrollTop * this.ratio
     });
+  },
+
+  scrollbarRequired: function() {
+    return this.refs.scrollableContent.getDOMNode().scrollHeight > this.refs.scrollableContent.getDOMNode().clientHeight;
   },
 
   handleScroll: function(event) {
@@ -115,11 +127,7 @@ var ScrollbarMixin = {
 
   scrollbarContentStyle: function() {
     return {
-      paddingRight: 15,
-      width: '100%',
-      height: 300,
-      overflow: 'auto',
-      background: 'rgb(253, 253, 253)',
+      paddingRight: 15
     };
   }
 };
