@@ -10,12 +10,6 @@ html {
 }
 
 .App {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  width: 70%;
+  margin: 2em auto;
 }
-
-.App-content {
-  flex: 1;
-}
-

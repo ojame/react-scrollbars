@@ -6,7 +6,7 @@ var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var Vertical = require('./views/vertical/index.jsx');
+var Home = require('./views/home/index.jsx');
 
 require('normalize.css/normalize.css');
 require('./app.scss');
@@ -28,7 +28,7 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
-    <DefaultRoute name="vertical" handler={Vertical}/>
+    <DefaultRoute name="home" handler={Home}/>
   </Route>
 );
 
