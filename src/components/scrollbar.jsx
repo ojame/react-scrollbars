@@ -4,9 +4,21 @@ var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
       offset: 0,
-      stickHeight: 100,
-      stickPosition: 0,
-      showScrollbar: true
+      stickLength: {
+        horizontal: 100,
+        vertical: 100
+      },
+      stickPosition: {
+        horizontal: 0,
+        vertical: 0
+      },
+      scrollbarLength: {
+        horizontal: 100,
+        vertical: 100
+      },
+      showScrollbar: true,
+      vertical: true, // TODO: warn if both vert and hor are set to true, can only have one
+      horizontal: false
     };
   },
 
@@ -14,8 +26,8 @@ var Scrollbar = React.createClass({
     var bottom = this.props.offset;
     var height;
 
-    if (this.props.scrollbarHeight) {
-      height = this.props.scrollbarHeight;
+    if (this.props.scrollbarLength.vertical) {
+      height = this.props.scrollbarLength.vertical;
     }
 
     var scrollbarStyle = {
@@ -32,8 +44,8 @@ var Scrollbar = React.createClass({
 
     var scrollbarStickStyle = {
       width: 10,
-      height: this.props.stickHeight,
-      top: this.props.stickPosition,
+      height: this.props.stickLength.vertical,
+      top: this.props.stickPosition.vertical,
       right: 0,
       background: 'RGB(130, 130, 130)',
       position: 'absolute',
