@@ -1,12 +1,12 @@
 {
   "name": "react-scrollbar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "app/app.js",
   "scripts": {
-    "dev": "webpack-dev-server --devtool --hot eval --progress --colors --output-public-path build/",
-    "deploy": "webpack"
+    "start": "cd examples && webpack-dev-server --d --hot --inline --progress --colors",
+    "build": "./node_modules/jsx-loader/node_modules/.bin/jsx --harmony --no-cache-dir -x jsx src lib"
   },
+  "main": "lib/index.js",
   "author": "James Coleman",
   "license": "ISC",
   "bugs": {
@@ -27,7 +27,6 @@
     "react-router": "^0.11.6"
   },
   "dependencies": {
-    "react": "^0.12.2",
-    "fluxxor": "^1.5.2"
+    "react": "^0.12.2"
   }
 }
