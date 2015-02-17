@@ -33,7 +33,10 @@ var ScrollbarMixin = {
       axis: null,
       initialMovement: false,
       scrolling: false,
-      showScrollbar: true,
+      showScrollbar: {
+        horizontal: true,
+        vertical: true
+      },
       scrollbarLength: {
         horizontal: 0,
         vertical: 0
@@ -59,25 +62,25 @@ var ScrollbarMixin = {
   componentDidUpdate: function() {
     var newstickLength = this.getstickLength(this.refs.scrollableContent.getDOMNode());
 
-    if (this.state.stickLength.vertical !== newstickLength.vertical) {
+    if (!_.isEqual(this.state.stickLength, newstickLength)) {
       this.setState({
         stickLength: newstickLength
       });
     }
 
-    if (this.state.showScrollbar !== this.scrollbarRequired()) {
+    if (!_.isEqual(this.state.showScrollbar, this.scrollbarRequired())) {
       this.setState({
         showScrollbar: this.scrollbarRequired()
       });
     }
 
-    if (this.state.contentDimensions.height !== this.getContentDimensions().height) {
+    if (!_.isEqual(this.state.contentDimensions, this.getContentDimensions())) {
       this.setState({
         contentDimensions: this.getContentDimensions()
       });
     }
 
-    if (this.state.scrollbarLength.vertical !== this.getscrollbarLength().vertical) {
+    if (!_.isEqual(this.state.scrollbarLength, this.getscrollbarLength())) {
       this.setState({
         scrollbarLength: this.getscrollbarLength()
       });
@@ -128,7 +131,10 @@ var ScrollbarMixin = {
   },
 
   scrollbarRequired: function() {
-    return this.refs.scrollableContent.getDOMNode().scrollHeight > this.state.contentDimensions.height;
+    return {
+      horizontal: this.refs.scrollableContent.getDOMNode().scrollWidth > this.state.contentDimensions.width,
+      vertical: this.refs.scrollableContent.getDOMNode().scrollHeight > this.state.contentDimensions.height
+    };
   },
 
   handleScroll: function(event) {

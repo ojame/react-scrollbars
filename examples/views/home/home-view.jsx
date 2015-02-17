@@ -20,7 +20,7 @@ module.exports = React.createClass({
 
         <h2>Horizontal Scrollbars</h2>
         <HorizontalScrollbar />
-{/*
+
         <h2>Vertical Scrollbars</h2>
 
         <h3>Standard</h3>
@@ -34,7 +34,7 @@ module.exports = React.createClass({
         <hr />
 
         <h3>No scrollbar</h3>
-        <NoVerticalOverflow />*/}
+        <NoVerticalOverflow />
       </div>
     );
   }

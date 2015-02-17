@@ -18,10 +18,37 @@ var Scrollbar = React.createClass({
         horizontal: 100,
         vertical: 100
       },
-      showScrollbar: true,
+      showScrollbar: {
+        horizontal: true,
+        vertical: false
+      },
       vertical: true, // TODO: warn if both vert and hor are set to true, can only have one
       horizontal: false
     };
+  },
+
+  verticalScrollbar: function(style, stickStyle) {
+    if (this.props.showScrollbar.vertical) {
+      return (
+        <div style={style}>
+          <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  },
+
+  horizontalScrollbar: function(style, stickStyle) {
+    if (this.props.showScrollbar.horizontal) {
+      return (
+        <div style={style}>
+          <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'x')}></div>
+        </div>
+      );
+    } else {
+      return null;
+    }
   },
 
   render: function() {
@@ -75,23 +102,12 @@ var Scrollbar = React.createClass({
       left: this.props.stickPosition.horizontal
     }, stickStyle);
 
-    if (this.props.showScrollbar) {
-      return (
-        <div>
-          <div style={scrollbarStyleVertical}>
-            <div style={scrollbarStickStyleVertical} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
-          </div>
-
-          <div style={scrollbarStyleHorizontal}>
-            <div style={scrollbarStickStyleHorizontal} onMouseDown={this.props.onMouseDown.bind(null, 'x')}></div>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <div></div>
-      )
-    }
+    return (
+      <div>
+        {this.verticalScrollbar(scrollbarStyleVertical, scrollbarStickStyleVertical)}
+        {this.horizontalScrollbar(scrollbarStyleHorizontal, scrollbarStickStyleHorizontal)}
+      </div>
+    );
   }
 });
 

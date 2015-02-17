@@ -14,10 +14,7 @@ var VerticalScrollbar = React.createClass({
           <p>Alex Woods (born October 7, 1982 in Houston, Texas) is an American soccer player, currently without a club. Woods played four years of college soccer at Trinity University. Undrafted out of college, Woods spent time with the reserve sides of FC Dallas and Houston Dynamo in Major League Soccer, featuring for both teams in the MLS Reserve Division, but never making a senior appearance for either team. After a brief stint with Charleston Battery in the USL First Division in 2005, Woods signed with Charlotte Eagles in 2007, and made his debut for the team on May 5, 2007, as a second half substitute in a game against Harrisburg City Islanders.</p>
 
           <Scrollbar
-            stickHeight={this.state.stickHeight}
-            stickPosition={this.state.stickPosition}
-            onMouseDown={this.handleMouseDown}
-            showScrollbar={this.state.showScrollbar} />
+            {... this.getScrollbarProps()} />
         </div>
       </div>
     );

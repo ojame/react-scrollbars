@@ -32,11 +32,7 @@ var VerticalScrollbar = React.createClass({
           <p>Reuben Uther (27 March 1791 - 27 July 1894) was a noted Australian merchant and manufacturer. Born in England, Uther began his career in seal skins before emigrating to Sydney in 1807 where he founded a hat making industry, a region of industry that he subsequently monopolised. He was a signatory to the petition to Major George Johnston calling for the deposing of the Governor of New South Wales, William Bligh, having only lived in the country for one year.</p>
 
           <Scrollbar
-            stickHeight={this.state.stickHeight}
-            stickPosition={this.state.stickPosition}
-            onMouseDown={this.handleMouseDown}
-            showScrollbar={this.state.showScrollbar}
-            offset={this.state.scrollbarOffset} />
+            {... this.getScrollbarProps()} />
         </div>
       </div>
     );
