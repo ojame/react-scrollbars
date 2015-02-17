@@ -1,8 +1,6 @@
-/** @jsx React.DOM */
-React = require('react');
-var ScrollbarMixin = require('./../../../utils/mixins/scrollbar.jsx');
-var OverflowContent = require('./../../../utils/components/overflow-content.jsx');
-var Scrollbar = require('./../../../utils/components/scrollbar.jsx');
+var React = require('react');
+var ScrollbarMixin = require('react-scrollbar').Mixin;
+var Scrollbar = require('react-scrollbar').Scrollbar;
 
 require('./no-vertical-scrollbar.scss');
 

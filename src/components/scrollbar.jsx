@@ -1,5 +1,4 @@
-/** @jsx React.DOM */
-React = require('react');
+var React = require('react');
 
 var Scrollbar = React.createClass({
   getDefaultProps: function() {

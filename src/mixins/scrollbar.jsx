@@ -1,6 +1,10 @@
 'use strict';
+var React = require('react/addons');
 
-require('./scrollbar.scss');
+var style = { // TODO: there are js libs to polyfill these
+  WebkitTouchCallout: 'none',
+  userSelect: 'none'
+};
 
 var ScrollbarMixin = {
   getInitialState: function() {
@@ -133,7 +137,7 @@ var ScrollbarMixin = {
     this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollTop + scaledMovement;
   },
 
-  containerClass: function() {
+  containerClass: function() { // TODO: rename getStyle or something
     var cx = React.addons.classSet;
 
     return cx({
