@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react/addons');
+var _ = require('lodash-node');
 
 var style = { // TODO: there are js libs to polyfill these
   WebkitTouchCallout: 'none',
@@ -21,8 +22,15 @@ var ScrollbarMixin = {
         horizontal: 0,
         vertical: 0
       },
-      initialScrollTop: 0,
-      initialPositionY: 0,
+      initialScroll: {
+        left: 0,
+        top: 0
+      },
+      initialPosition: {
+        x: 0,
+        y: 0
+      },
+      axis: null,
       initialMovement: false,
       scrolling: false,
       showScrollbar: true,
@@ -127,9 +135,13 @@ var ScrollbarMixin = {
     this.setStickPosition(event);
   },
 
-  handleMouseDown: function(event) {
+  handleMouseDown: function(axis, event) {
     this.setState({
-      initialPositionY: event.pageY,
+      axis: axis,
+      initialPosition: {
+        x: event.pageX,
+        y: event.pageY
+      },
       initialMovement: true,
       scrolling: true
     });
@@ -148,20 +160,36 @@ var ScrollbarMixin = {
   },
 
   handleStickDrag: function(event) {
-    var initialScrollTop = this.state.initialScrollTop;
+    var origin = this.state.axis === 'x' ? 'left' : 'top';
+
+    var initialScrollPosition = this.state.initialScroll[origin];
 
     if (this.state.initialMovement) {
-      initialScrollTop = this.refs.scrollableContent.getDOMNode().scrollTop;
+      initialScrollPosition = origin === 'left' ? this.refs.scrollableContent.getDOMNode().scrollLeft : this.refs.scrollableContent.getDOMNode().scrollTop;
+      var initialScroll = _.extend({}, this.state.initialScroll);
+      initialScroll[origin] = initialScrollPosition;
 
       this.setState({
-        initialScrollTop: initialScrollTop,
+        initialScroll: initialScroll,
         initialMovement: false
       });
     }
 
-    var movement = (this.state.initialPositionY - event.pageY) * -1;
-    var scaledMovement = movement / this.ratio.vertical;
-    this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollTop + scaledMovement;
+    var movement = {
+      x: (this.state.initialPosition.x - event.pageX) * -1,
+      y: (this.state.initialPosition.y - event.pageY) * -1
+    };
+
+    var scaledMovement = {
+      x: movement.x / this.ratio.horizontal,
+      y: movement.y / this.ratio.vertical
+    };
+
+    if (this.state.axis === 'x') {
+      this.refs.scrollableContent.getDOMNode().scrollLeft = initialScrollPosition + scaledMovement.x;
+    } else {
+      this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollPosition + scaledMovement.y;
+    }
   },
 
   getScrollbarProps: function() {

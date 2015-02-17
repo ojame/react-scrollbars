@@ -79,11 +79,11 @@ var Scrollbar = React.createClass({
       return (
         <div>
           <div style={scrollbarStyleVertical}>
-            <div style={scrollbarStickStyleVertical} onMouseDown={this.props.onMouseDown}></div>
+            <div style={scrollbarStickStyleVertical} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
           </div>
 
           <div style={scrollbarStyleHorizontal}>
-            <div style={scrollbarStickStyleHorizontal} onMouseDown={this.props.onMouseDown}></div>
+            <div style={scrollbarStickStyleHorizontal} onMouseDown={this.props.onMouseDown.bind(null, 'x')}></div>
           </div>
         </div>
       )
