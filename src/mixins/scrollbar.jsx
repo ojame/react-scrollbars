@@ -81,13 +81,17 @@ var ScrollbarMixin = {
   },
 
   getstickLength: function(element) {
-    var contentDimensions = element.scrollHeight;
     var scrollbarLength = this.state.scrollbarLength;
-    this.ratio = scrollbarLength.vertical / contentDimensions;
-    var vertical = scrollbarLength.vertical * this.ratio;
+    this.ratio = {
+      horizontal: scrollbarLength.horizontal / element.scrollWidth,
+      vertical: scrollbarLength.vertical / element.scrollHeight
+    };
+
+    var horizontal = scrollbarLength.horizontal * this.ratio.horizontal;
+    var vertical = scrollbarLength.vertical * this.ratio.vertical;
 
     return {
-      horizontal: 0,
+      horizontal: horizontal,
       vertical: vertical
     };
   },
@@ -95,23 +99,22 @@ var ScrollbarMixin = {
   getContentDimensions: function() {
     return {
       height: this.refs.scrollableContent.getDOMNode().clientHeight,
-      width: 0
+      width: this.refs.scrollableContent.getDOMNode().clientWidth
     };
   },
 
   getscrollbarLength: function() {
     return {
-      horizontal: 0,
-      vertical: this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2)
+      horizontal: this.state.contentDimensions.width - ((this.state.scrollbarOffset || 0) * 2),
+      vertical: this.state.contentDimensions.height - ((this.state.scrollbarOffset || 0) * 2)
     };
   },
 
   setStickPosition: function(event) {
-    var scrollTop = event.target.scrollTop;
     this.setState({
       stickPosition: {
-        horizontal: 0,
-        vertical: scrollTop * this.ratio
+        horizontal: event.target.scrollLeft * this.ratio.horizontal,
+        vertical: event.target.scrollTop * this.ratio.vertical
       }
     });
   },
@@ -157,7 +160,7 @@ var ScrollbarMixin = {
     }
 
     var movement = (this.state.initialPositionY - event.pageY) * -1;
-    var scaledMovement = movement / this.ratio;
+    var scaledMovement = movement / this.ratio.vertical;
     this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollTop + scaledMovement;
   },
 

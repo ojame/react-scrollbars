@@ -1,9 +1,11 @@
 var React = require('react');
+var _ = require('lodash-node');
 
 var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
       offset: 0,
+      scrollbarThickness: 10,
       stickLength: {
         horizontal: 100,
         vertical: 100
@@ -31,31 +33,58 @@ var Scrollbar = React.createClass({
     }
 
     var scrollbarStyle = {
-      width: 10,
       borderRadius: 4,
-      background: 'RGB(220, 220, 220)',
+      background: 'red',
       position: 'absolute',
-      top: this.props.offset,
-      height: height || 'auto',
-      bottom: height ? 'auto' : this.props.offset,
-      right: this.props.offset,
       opacity: 1
     };
 
-    var scrollbarStickStyle = {
-      width: 10,
-      height: this.props.stickLength.vertical,
-      top: this.props.stickPosition.vertical,
-      right: 0,
-      background: 'RGB(130, 130, 130)',
+    var stickStyle = {
+      background: 'black',
       position: 'absolute',
       borderRadius: 4
     };
 
+    // TODO: clean this junk UP
+
+    var scrollbarStyleVertical = _.extend({
+      width: this.props.scrollbarThickness,
+      top: this.props.offset,
+      height: height || 'auto',
+      bottom: height ? 'auto' : this.props.offset,
+      right: this.props.offset,
+    }, scrollbarStyle);
+
+    var scrollbarStyleHorizontal = _.extend({
+      left: this.props.offset,
+      bottom: this.props.offset,
+      right: this.props.offset,
+      height: this.props.scrollbarThickness
+    }, scrollbarStyle);
+
+    var scrollbarStickStyleVertical = _.extend({
+      width: this.props.scrollbarThickness,
+      height: this.props.stickLength.vertical,
+      top: this.props.stickPosition.vertical,
+      right: 0
+    }, stickStyle);
+
+    var scrollbarStickStyleHorizontal = _.extend({
+      height: this.props.scrollbarThickness,
+      width: this.props.stickLength.horizontal,
+      left: this.props.stickPosition.horizontal
+    }, stickStyle);
+
     if (this.props.showScrollbar) {
       return (
-        <div style={scrollbarStyle}>
-          <div style={scrollbarStickStyle} onMouseDown={this.props.onMouseDown}></div>
+        <div>
+          <div style={scrollbarStyleVertical}>
+            <div style={scrollbarStickStyleVertical} onMouseDown={this.props.onMouseDown}></div>
+          </div>
+
+          <div style={scrollbarStyleHorizontal}>
+            <div style={scrollbarStickStyleHorizontal} onMouseDown={this.props.onMouseDown}></div>
+          </div>
         </div>
       )
     } else {
