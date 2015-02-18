@@ -1,10 +1,9 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var BothScrollbar = require('./examples/both-scrollbar.jsx');
 var HorizontalScrollbar = require('./examples/horizontal-scrollbar.jsx');
 var VerticalScrollbar = require('./examples/vertical-scrollbar.jsx');
-var NoVerticalOverflow = require('./examples/no-vertical-scrollbar.jsx');
-var VerticalScrollbarPadding = require('./examples/vertical-scrollbar-padding.jsx');
 
 module.exports = React.createClass({
 
@@ -18,23 +17,15 @@ module.exports = React.createClass({
       <div>
         <h1>Scrollbars</h1>
 
-        <h2>Horizontal Scrollbars</h2>
-        <HorizontalScrollbar />
-
-        <h2>Vertical Scrollbars</h2>
-
-        <h3>Standard</h3>
+        <h3>Vertical Scrollbars</h3>
         <VerticalScrollbar />
 
-        <hr />
+        <h3>Horizontal Scrollbars</h3>
+        <HorizontalScrollbar />
 
-        <h3>Content with padding</h3>
-        <VerticalScrollbarPadding />
+        <h3>Horizontal and Vertical Scrollbars</h3>
+        <BothScrollbar />
 
-        <hr />
-
-        <h3>No scrollbar</h3>
-        <NoVerticalOverflow />
       </div>
     );
   }
