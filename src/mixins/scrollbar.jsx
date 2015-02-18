@@ -10,14 +10,6 @@ var style = { // TODO: there are js libs to polyfill these
 var ScrollbarMixin = {
   getInitialState: function() {
     return {
-      stickLength: {
-        horizontal: 0,
-        vertical: 0
-      },
-      contentDimensions: {
-        height: 0,
-        width: 0
-      },
       stickPosition: {
         horizontal: 0,
         vertical: 0
@@ -32,26 +24,11 @@ var ScrollbarMixin = {
       },
       axis: null,
       initialMovement: false,
-      scrolling: false,
-      showScrollbar: {
-        horizontal: true,
-        vertical: true
-      },
-      scrollbarLength: {
-        horizontal: 0,
-        vertical: 0
-      }
+      scrolling: false
     };
   },
 
   componentDidMount: function() {
-    this.setState({
-      stickLength: this.getstickLength(this.refs.scrollableContent.getDOMNode()),
-      contentDimensions: this.getContentDimensions(),
-      scrollbarLength: this.getscrollbarLength(),
-      showScrollbar: this.scrollbarRequired()
-    });
-
     // This is a stupid hack, to get around: http://i.imgur.com/jEUO6l0.gif. TODO: remove it.
     var self = this;
     setTimeout(function() {
@@ -59,43 +36,19 @@ var ScrollbarMixin = {
     }, 1000);
   },
 
-  componentDidUpdate: function() {
-    var newstickLength = this.getstickLength(this.refs.scrollableContent.getDOMNode());
-
-    if (!_.isEqual(this.state.stickLength, newstickLength)) {
-      this.setState({
-        stickLength: newstickLength
-      });
-    }
-
-    if (!_.isEqual(this.state.showScrollbar, this.scrollbarRequired())) {
-      this.setState({
-        showScrollbar: this.scrollbarRequired()
-      });
-    }
-
-    if (!_.isEqual(this.state.contentDimensions, this.getContentDimensions())) {
-      this.setState({
-        contentDimensions: this.getContentDimensions()
-      });
-    }
-
-    if (!_.isEqual(this.state.scrollbarLength, this.getscrollbarLength())) {
-      this.setState({
-        scrollbarLength: this.getscrollbarLength()
-      });
-    }
-  },
-
   getBoundingRect: function(element) {
     return element.getBoundingClientRect();
   },
 
-  getstickLength: function(element) {
-    var scrollbarLength = this.state.scrollbarLength;
+  getStickLength: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
+    var scrollbarLength = this.getScrollbarLength();
     this.ratio = {
-      horizontal: scrollbarLength.horizontal / element.scrollWidth,
-      vertical: scrollbarLength.vertical / element.scrollHeight
+      horizontal: scrollbarLength.horizontal / this.refs.scrollableContent.getDOMNode().scrollWidth,
+      vertical: scrollbarLength.vertical / this.refs.scrollableContent.getDOMNode().scrollHeight
     };
 
     var horizontal = scrollbarLength.horizontal * this.ratio.horizontal;
@@ -108,16 +61,20 @@ var ScrollbarMixin = {
   },
 
   getContentDimensions: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
     return {
       height: this.refs.scrollableContent.getDOMNode().clientHeight,
       width: this.refs.scrollableContent.getDOMNode().clientWidth
     };
   },
 
-  getscrollbarLength: function() {
+  getScrollbarLength: function() {
     return {
-      horizontal: this.state.contentDimensions.width - ((this.state.scrollbarOffset || 0) * 2),
-      vertical: this.state.contentDimensions.height - ((this.state.scrollbarOffset || 0) * 2)
+      horizontal: this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2),
+      vertical: this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2)
     };
   },
 
@@ -131,9 +88,14 @@ var ScrollbarMixin = {
   },
 
   scrollbarRequired: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
+    var content = this.refs.scrollableContent.getDOMNode();
     return {
-      horizontal: this.refs.scrollableContent.getDOMNode().scrollWidth > this.state.contentDimensions.width,
-      vertical: this.refs.scrollableContent.getDOMNode().scrollHeight > this.state.contentDimensions.height
+      horizontal: content.scrollWidth > this.getContentDimensions().width,
+      vertical: content.scrollHeight > this.getContentDimensions().height
     };
   },
 
@@ -200,11 +162,11 @@ var ScrollbarMixin = {
 
   getScrollbarProps: function() {
     return {
-      stickLength: this.state.stickLength,
-      scrollbarLength: this.state.scrollbarLength,
+      stickLength: this.getStickLength(),
+      scrollbarLength: this.getScrollbarLength(),
       stickPosition: this.state.stickPosition,
       onMouseDown: this.handleMouseDown,
-      showScrollbar: this.state.showScrollbar,
+      showScrollbar: this.scrollbarRequired(),
       offset: this.state.scrollbarOffset
     };
   },
@@ -227,7 +189,8 @@ var ScrollbarMixin = {
 
   scrollbarContentStyle: function() {
     return {
-      paddingRight: 15
+      paddingRight: this.scrollbarRequired().vertical ? 15 : 0,
+      marginBottom: this.scrollbarRequired().horizontal ? -15 : 0
     };
   }
 };
