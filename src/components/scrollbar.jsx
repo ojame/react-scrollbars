@@ -22,13 +22,13 @@ var Scrollbar = React.createClass({
         horizontal: true,
         vertical: false
       },
-      vertical: true, // TODO: warn if both vert and hor are set to true, can only have one
-      horizontal: false
+      vertical: true,
+      horizontal: true
     };
   },
 
   verticalScrollbar: function(style, stickStyle) {
-    if (this.props.showScrollbar.vertical) {
+    if (this.props.vertical && this.props.showScrollbar.vertical) {
       return (
         <div style={style}>
           <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
@@ -40,7 +40,7 @@ var Scrollbar = React.createClass({
   },
 
   horizontalScrollbar: function(style, stickStyle) {
-    if (this.props.showScrollbar.horizontal) {
+    if (this.props.horizontal && this.props.showScrollbar.horizontal) {
       return (
         <div style={style}>
           <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'x')}></div>
