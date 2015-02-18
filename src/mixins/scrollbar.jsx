@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react/addons');
+var _ = require('lodash-node');
 
 var style = { // TODO: there are js libs to polyfill these
   WebkitTouchCallout: 'none',
@@ -9,26 +10,25 @@ var style = { // TODO: there are js libs to polyfill these
 var ScrollbarMixin = {
   getInitialState: function() {
     return {
-      stickHeight: 0,
-      contentHeight: 0,
-      stickPosition: 0,
-      initialScrollTop: 0,
-      initialPositionY: 0,
+      stickPosition: {
+        horizontal: 0,
+        vertical: 0
+      },
+      initialScroll: {
+        left: 0,
+        top: 0
+      },
+      initialPosition: {
+        x: 0,
+        y: 0
+      },
+      axis: null,
       initialMovement: false,
-      scrolling: false,
-      showScrollbar: true,
-      scrollbarHeight: 0
+      scrolling: false
     };
   },
 
   componentDidMount: function() {
-    this.setState({
-      stickHeight: this.getStickHeight(this.refs.scrollableContent.getDOMNode()),
-      contentHeight: this.getContentHeight(),
-      scrollbarHeight: this.getScrollbarHeight(),
-      showScrollbar: this.scrollbarRequired()
-    });
-
     // This is a stupid hack, to get around: http://i.imgur.com/jEUO6l0.gif. TODO: remove it.
     var self = this;
     setTimeout(function() {
@@ -36,73 +36,80 @@ var ScrollbarMixin = {
     }, 1000);
   },
 
-  componentDidUpdate: function() {
-    var newStickHeight = this.getStickHeight(this.refs.scrollableContent.getDOMNode());
-
-    if (this.state.stickHeight !== newStickHeight) {
-      this.setState({
-        stickHeight: newStickHeight
-      });
-    }
-
-    if (this.state.showScrollbar !== this.scrollbarRequired()) {
-      this.setState({
-        showScrollbar: this.scrollbarRequired()
-      });
-    }
-
-    if (this.state.contentHeight !== this.getContentHeight()) {
-      this.setState({
-        contentHeight: this.getContentHeight()
-      });
-    }
-
-    if (this.state.scrollbarHeight !== this.getScrollbarHeight()) {
-      this.setState({
-        scrollbarHeight: this.getScrollbarHeight()
-      });
-    }
-  },
-
   getBoundingRect: function(element) {
     return element.getBoundingClientRect();
   },
 
-  getStickHeight: function(element) {
-    var contentHeight = element.scrollHeight;
-    var scrollbarHeight = this.state.scrollbarHeight;
-    this.ratio = scrollbarHeight / contentHeight;
-    var stickHeight = scrollbarHeight * this.ratio;
+  getStickLength: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
 
-    return stickHeight;
+    var scrollbarLength = this.getScrollbarLength();
+    this.ratio = {
+      horizontal: scrollbarLength.horizontal / this.refs.scrollableContent.getDOMNode().scrollWidth,
+      vertical: scrollbarLength.vertical / this.refs.scrollableContent.getDOMNode().scrollHeight
+    };
+
+    var horizontal = scrollbarLength.horizontal * this.ratio.horizontal;
+    var vertical = scrollbarLength.vertical * this.ratio.vertical;
+
+    return {
+      horizontal: horizontal,
+      vertical: vertical
+    };
   },
 
-  getContentHeight: function() {
-    return this.refs.scrollableContent.getDOMNode().clientHeight;
+  getContentDimensions: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
+    return {
+      height: this.refs.scrollableContent.getDOMNode().clientHeight,
+      width: this.refs.scrollableContent.getDOMNode().clientWidth
+    };
   },
 
-  getScrollbarHeight: function() {
-    return this.getContentHeight() - ((this.state.scrollbarOffset || 0) * 2);
+  getScrollbarLength: function() {
+    return {
+      horizontal: this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2),
+      vertical: this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2)
+    };
   },
 
   setStickPosition: function(event) {
-    var scrollTop = event.target.scrollTop;
     this.setState({
-      stickPosition: scrollTop * this.ratio
+      stickPosition: {
+        horizontal: event.target.scrollLeft * this.ratio.horizontal,
+        vertical: event.target.scrollTop * this.ratio.vertical
+      }
     });
   },
 
   scrollbarRequired: function() {
-    return this.refs.scrollableContent.getDOMNode().scrollHeight > this.state.contentHeight;
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
+    var content = this.refs.scrollableContent.getDOMNode();
+    return {
+      horizontal: content.scrollWidth > this.getContentDimensions().width,
+      vertical: content.scrollHeight > this.getContentDimensions().height
+    };
   },
 
   handleScroll: function(event) {
     this.setStickPosition(event);
   },
 
-  handleMouseDown: function(event) {
+  handleMouseDown: function(axis, event) {
     this.setState({
-      initialPositionY: event.pageY,
+      axis: axis,
+      initialPosition: {
+        x: event.pageX,
+        y: event.pageY
+      },
       initialMovement: true,
       scrolling: true
     });
@@ -121,20 +128,47 @@ var ScrollbarMixin = {
   },
 
   handleStickDrag: function(event) {
-    var initialScrollTop = this.state.initialScrollTop;
+    var origin = this.state.axis === 'x' ? 'left' : 'top';
+
+    var initialScrollPosition = this.state.initialScroll[origin];
 
     if (this.state.initialMovement) {
-      initialScrollTop = this.refs.scrollableContent.getDOMNode().scrollTop;
+      initialScrollPosition = origin === 'left' ? this.refs.scrollableContent.getDOMNode().scrollLeft : this.refs.scrollableContent.getDOMNode().scrollTop;
+      var initialScroll = _.extend({}, this.state.initialScroll);
+      initialScroll[origin] = initialScrollPosition;
 
       this.setState({
-        initialScrollTop: initialScrollTop,
+        initialScroll: initialScroll,
         initialMovement: false
       });
     }
 
-    var movement = (this.state.initialPositionY - event.pageY) * -1;
-    var scaledMovement = movement / this.ratio;
-    this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollTop + scaledMovement;
+    var movement = {
+      x: (this.state.initialPosition.x - event.pageX) * -1,
+      y: (this.state.initialPosition.y - event.pageY) * -1
+    };
+
+    var scaledMovement = {
+      x: movement.x / this.ratio.horizontal,
+      y: movement.y / this.ratio.vertical
+    };
+
+    if (this.state.axis === 'x') {
+      this.refs.scrollableContent.getDOMNode().scrollLeft = initialScrollPosition + scaledMovement.x;
+    } else {
+      this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollPosition + scaledMovement.y;
+    }
+  },
+
+  getScrollbarProps: function() {
+    return {
+      stickLength: this.getStickLength(),
+      scrollbarLength: this.getScrollbarLength(),
+      stickPosition: this.state.stickPosition,
+      onMouseDown: this.handleMouseDown,
+      showScrollbar: this.scrollbarRequired(),
+      offset: this.state.scrollbarOffset
+    };
   },
 
   containerClass: function() { // TODO: rename getStyle or something
@@ -155,7 +189,8 @@ var ScrollbarMixin = {
 
   scrollbarContentStyle: function() {
     return {
-      paddingRight: 15
+      paddingRight: this.scrollbarRequired().vertical ? 15 : 0,
+      marginBottom: this.scrollbarRequired().horizontal ? -15 : 0
     };
   }
 };

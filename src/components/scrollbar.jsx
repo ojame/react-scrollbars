@@ -1,56 +1,113 @@
 var React = require('react');
+var _ = require('lodash-node');
 
 var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
       offset: 0,
-      stickHeight: 100,
-      stickPosition: 0,
-      showScrollbar: true
+      scrollbarThickness: 10,
+      stickLength: {
+        horizontal: 100,
+        vertical: 100
+      },
+      stickPosition: {
+        horizontal: 0,
+        vertical: 0
+      },
+      scrollbarLength: {
+        horizontal: 100,
+        vertical: 100
+      },
+      showScrollbar: {
+        horizontal: true,
+        vertical: false
+      },
+      vertical: true,
+      horizontal: true
     };
+  },
+
+  verticalScrollbar: function(style, stickStyle) {
+    if (this.props.vertical && this.props.showScrollbar.vertical) {
+      return (
+        <div style={style}>
+          <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  },
+
+  horizontalScrollbar: function(style, stickStyle) {
+    if (this.props.horizontal && this.props.showScrollbar.horizontal) {
+      return (
+        <div style={style}>
+          <div style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'x')}></div>
+        </div>
+      );
+    } else {
+      return null;
+    }
   },
 
   render: function() {
     var bottom = this.props.offset;
     var height;
 
-    if (this.props.scrollbarHeight) {
-      height = this.props.scrollbarHeight;
+    if (this.props.scrollbarLength.vertical) {
+      height = this.props.scrollbarLength.vertical;
     }
 
     var scrollbarStyle = {
-      width: 10,
       borderRadius: 4,
-      background: 'RGB(220, 220, 220)',
+      background: 'rgba(0, 0, 0, 0.5)',
       position: 'absolute',
-      top: this.props.offset,
-      height: height || 'auto',
-      bottom: height ? 'auto' : this.props.offset,
-      right: this.props.offset,
       opacity: 1
     };
 
-    var scrollbarStickStyle = {
-      width: 10,
-      height: this.props.stickHeight,
-      top: this.props.stickPosition,
-      right: 0,
-      background: 'RGB(130, 130, 130)',
+    var stickStyle = {
+      background: 'rgba(255, 255, 255, 0.7)',
       position: 'absolute',
       borderRadius: 4
     };
 
-    if (this.props.showScrollbar) {
-      return (
-        <div style={scrollbarStyle}>
-          <div style={scrollbarStickStyle} onMouseDown={this.props.onMouseDown}></div>
-        </div>
-      )
-    } else {
-      return (
-        <div></div>
-      )
-    }
+    // TODO: clean this junk UP
+
+    var scrollbarStyleVertical = _.extend({
+      width: this.props.scrollbarThickness,
+      top: this.props.offset,
+      height: height || 'auto',
+      bottom: height ? 'auto' : this.props.offset,
+      right: this.props.offset,
+    }, scrollbarStyle);
+
+    var scrollbarStyleHorizontal = _.extend({
+      left: this.props.offset,
+      bottom: this.props.offset,
+      right: this.props.offset,
+      height: this.props.scrollbarThickness
+    }, scrollbarStyle);
+
+    var scrollbarStickStyleVertical = _.extend({
+      width: this.props.scrollbarThickness,
+      height: this.props.stickLength.vertical,
+      top: this.props.stickPosition.vertical,
+      right: 0
+    }, stickStyle);
+
+    var scrollbarStickStyleHorizontal = _.extend({
+      height: this.props.scrollbarThickness,
+      width: this.props.stickLength.horizontal,
+      left: this.props.stickPosition.horizontal
+    }, stickStyle);
+
+    return (
+      <div>
+        {this.verticalScrollbar(scrollbarStyleVertical, scrollbarStickStyleVertical)}
+        {this.horizontalScrollbar(scrollbarStyleHorizontal, scrollbarStickStyleHorizontal)}
+      </div>
+    );
   }
 });
 
