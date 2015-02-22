@@ -52,11 +52,15 @@ var Scrollbar = React.createClass({
   },
 
   render: function() {
-    var bottom = this.props.offset;
-    var height;
+    var verticalScrollbarHeight;
+    var horizontalScrollbarWidth;
 
     if (this.props.scrollbarLength.vertical) {
-      height = this.props.scrollbarLength.vertical;
+      verticalScrollbarHeight = this.props.scrollbarLength.vertical;
+    }
+
+    if (this.props.scrollbarLength.horizontal) {
+      horizontalScrollbarWidth = this.props.scrollbarLength.horizontal;
     }
 
     var scrollbarStyle = {
@@ -77,15 +81,16 @@ var Scrollbar = React.createClass({
     var scrollbarStyleVertical = _.extend({
       width: this.props.scrollbarThickness,
       top: this.props.offset,
-      height: height || 'auto',
-      bottom: height ? 'auto' : this.props.offset,
+      height: verticalScrollbarHeight || 'auto',
+      bottom: verticalScrollbarHeight ? 'auto' : this.props.offset,
       right: this.props.offset,
     }, scrollbarStyle);
 
     var scrollbarStyleHorizontal = _.extend({
       left: this.props.offset,
       bottom: this.props.offset,
-      right: this.props.offset,
+      width: horizontalScrollbarWidth || 'auto',
+      right: horizontalScrollbarWidth ? 'auto' : this.props.offset,
       height: this.props.scrollbarThickness
     }, scrollbarStyle);
 

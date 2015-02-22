@@ -24,7 +24,8 @@ var ScrollbarMixin = {
       },
       axis: null,
       initialMovement: false,
-      scrolling: false
+      scrolling: false,
+      nativeScrollbarWidth: 15
     };
   },
 
@@ -72,9 +73,18 @@ var ScrollbarMixin = {
   },
 
   getScrollbarLength: function() {
+    //scrollbarRequired
+    var horizontal = this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2);
+    var vertical = this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2);
+
+    if (this.scrollbarRequired().vertical && this.scrollbarRequired().horizontal) {
+      horizontal = horizontal - this.state.nativeScrollbarWidth;
+      vertical = vertical - this.state.nativeScrollbarWidth;
+    }
+
     return {
-      horizontal: this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2),
-      vertical: this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2)
+      horizontal: horizontal,
+      vertical: vertical
     };
   },
 
@@ -189,8 +199,8 @@ var ScrollbarMixin = {
 
   scrollbarContentStyle: function() {
     return {
-      paddingRight: this.scrollbarRequired().vertical ? 15 : 0,
-      marginBottom: this.scrollbarRequired().horizontal ? -15 : 0
+      paddingRight: this.scrollbarRequired().vertical ? this.state.nativeScrollbarWidth : 0,
+      marginBottom: this.scrollbarRequired().horizontal ? (this.state.nativeScrollbarWidth * -1) : 0
     };
   }
 };
