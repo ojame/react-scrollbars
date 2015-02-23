@@ -13,16 +13,13 @@ var VerticalScrollbar = React.createClass({
     };
   },
 
-
   render: function() {
     return (
       <div style={this.scrollbarContainerStyle()} className={this.containerClass()}>
-        <div style={this.scrollbarContentStyle()} ref="scrollableContent" onScroll={this.handleScroll} className="ScrollbarContent--vertical">
-          <img src="./../../assets/lift.jpg" style={{display: 'block'}} width="1000"/>
+        <div ref="scrollableContent" onScroll={this.handleScroll} className="ScrollbarContent--vertical">
+          <img onLoad={this.imageLoaded} src="./../../assets/lift.jpg" style={{display: 'block'}} width="1000"/>
           <Scrollbar
             {... this.getScrollbarProps()}
-            vertical={true}
-            horizontal={true}
           />
         </div>
       </div>

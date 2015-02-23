@@ -52,6 +52,10 @@ var Scrollbar = React.createClass({
   },
 
   render: function() {
+    if (!this.props.render) {
+      return <div></div>;
+    }
+
     var verticalScrollbarHeight;
     var horizontalScrollbarWidth;
 

@@ -25,20 +25,40 @@ var ScrollbarMixin = {
       axis: null,
       initialMovement: false,
       scrolling: false,
-      nativeScrollbarWidth: 15
+      nativeScrollbarWidth: 15,
+      firstRender: null
     };
   },
 
   componentDidMount: function() {
-    // This is a stupid hack, to get around: http://i.imgur.com/jEUO6l0.gif. TODO: remove it.
-    var self = this;
-    setTimeout(function() {
-      self.forceUpdate();
-    }, 1000);
+    this.setState({
+      firstRender: true
+    });
+  },
+
+  componentDidUpdate: function() {
+    if (this.state.firstRender) {
+      this.setState({
+        firstRender: false
+      });
+    }
   },
 
   getBoundingRect: function(element) {
     return element.getBoundingClientRect();
+  },
+
+  getRatio: function() {
+    if (!this.refs.scrollableContent) {
+      return {};
+    }
+
+    var scrollbarLength = this.getScrollbarLength();
+
+    return {
+      horizontal: scrollbarLength.horizontal / this.refs.scrollableContent.getDOMNode().scrollWidth,
+      vertical: scrollbarLength.vertical / this.refs.scrollableContent.getDOMNode().scrollHeight
+    };
   },
 
   getStickLength: function() {
@@ -47,13 +67,8 @@ var ScrollbarMixin = {
     }
 
     var scrollbarLength = this.getScrollbarLength();
-    this.ratio = {
-      horizontal: scrollbarLength.horizontal / this.refs.scrollableContent.getDOMNode().scrollWidth,
-      vertical: scrollbarLength.vertical / this.refs.scrollableContent.getDOMNode().scrollHeight
-    };
-
-    var horizontal = scrollbarLength.horizontal * this.ratio.horizontal;
-    var vertical = scrollbarLength.vertical * this.ratio.vertical;
+    var horizontal = scrollbarLength.horizontal * this.getRatio().horizontal;
+    var vertical = scrollbarLength.vertical * this.getRatio().vertical;
 
     return {
       horizontal: horizontal,
@@ -73,7 +88,15 @@ var ScrollbarMixin = {
   },
 
   getScrollbarLength: function() {
-    //scrollbarRequired
+    if (this.scrollbarRequired().vertical) {
+      this.refs.scrollableContent.getDOMNode().style.paddingRight = this.state.nativeScrollbarWidth + 'px';
+    }
+
+    if (this.scrollbarRequired().horizontal) {
+      this.refs.scrollableContent.getDOMNode().style.marginBottom = this.state.nativeScrollbarWidth * -1 + 'px';
+    }
+
+
     var horizontal = this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2);
     var vertical = this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2);
 
@@ -91,8 +114,8 @@ var ScrollbarMixin = {
   setStickPosition: function(event) {
     this.setState({
       stickPosition: {
-        horizontal: event.target.scrollLeft * this.ratio.horizontal,
-        vertical: event.target.scrollTop * this.ratio.vertical
+        horizontal: event.target.scrollLeft * this.getRatio().horizontal,
+        vertical: event.target.scrollTop * this.getRatio().vertical
       }
     });
   },
@@ -103,6 +126,7 @@ var ScrollbarMixin = {
     }
 
     var content = this.refs.scrollableContent.getDOMNode();
+
     return {
       horizontal: content.scrollWidth > this.getContentDimensions().width,
       vertical: content.scrollHeight > this.getContentDimensions().height
@@ -138,6 +162,7 @@ var ScrollbarMixin = {
   },
 
   handleStickDrag: function(event) {
+    // TODO: this needs refactoring
     var origin = this.state.axis === 'x' ? 'left' : 'top';
 
     var initialScrollPosition = this.state.initialScroll[origin];
@@ -159,8 +184,8 @@ var ScrollbarMixin = {
     };
 
     var scaledMovement = {
-      x: movement.x / this.ratio.horizontal,
-      y: movement.y / this.ratio.vertical
+      x: movement.x / this.getRatio().horizontal,
+      y: movement.y / this.getRatio().vertical
     };
 
     if (this.state.axis === 'x') {
@@ -170,8 +195,19 @@ var ScrollbarMixin = {
     }
   },
 
+  imageLoaded: function() {
+    this.forceUpdate();
+  },
+
   getScrollbarProps: function() {
+    if (this.state.firstRender !== false) {
+      return {
+        render: false
+      };
+    }
+
     return {
+      render: true,
       stickLength: this.getStickLength(),
       scrollbarLength: this.getScrollbarLength(),
       stickPosition: this.state.stickPosition,
@@ -194,13 +230,6 @@ var ScrollbarMixin = {
     return {
       position: 'relative',
       overflowX: 'hidden'
-    };
-  },
-
-  scrollbarContentStyle: function() {
-    return {
-      paddingRight: this.scrollbarRequired().vertical ? this.state.nativeScrollbarWidth : 0,
-      marginBottom: this.scrollbarRequired().horizontal ? (this.state.nativeScrollbarWidth * -1) : 0
     };
   }
 };
