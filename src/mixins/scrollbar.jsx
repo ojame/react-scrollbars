@@ -30,6 +30,12 @@ var ScrollbarMixin = {
     };
   },
 
+  getDefaultProps: function() {
+    return {
+      scrollbarOffset: 2
+    };
+  },
+
   componentDidMount: function() {
     this.setState({
       firstRender: true
@@ -97,8 +103,8 @@ var ScrollbarMixin = {
     }
 
 
-    var horizontal = this.getContentDimensions().width - ((this.state.scrollbarOffset || 0) * 2);
-    var vertical = this.getContentDimensions().height - ((this.state.scrollbarOffset || 0) * 2);
+    var horizontal = this.getContentDimensions().width - ((this.props.scrollbarOffset || 0) * 2);
+    var vertical = this.getContentDimensions().height - ((this.props.scrollbarOffset || 0) * 2);
 
     if (this.scrollbarRequired().vertical && this.scrollbarRequired().horizontal) {
       horizontal = horizontal - this.state.nativeScrollbarWidth;
@@ -195,7 +201,7 @@ var ScrollbarMixin = {
     }
   },
 
-  imageLoaded: function() {
+  handleContentResize: function() {
     this.forceUpdate();
   },
 
@@ -213,7 +219,7 @@ var ScrollbarMixin = {
       stickPosition: this.state.stickPosition,
       onMouseDown: this.handleMouseDown,
       showScrollbar: this.scrollbarRequired(),
-      offset: this.state.scrollbarOffset
+      offset: this.props.scrollbarOffset
     };
   },
 
