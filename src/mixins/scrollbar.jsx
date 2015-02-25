@@ -201,7 +201,7 @@ var ScrollbarMixin = {
     }
   },
 
-  imageLoaded: function() {
+  handleContentResize: function() {
     this.forceUpdate();
   },
 
