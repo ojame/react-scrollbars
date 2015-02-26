@@ -2,11 +2,6 @@
 var React = require('react/addons');
 var _ = require('lodash-node');
 
-var style = { // TODO: there are js libs to polyfill these
-  WebkitTouchCallout: 'none',
-  userSelect: 'none'
-};
-
 var ScrollbarMixin = {
   getInitialState: function() {
     return {
@@ -144,6 +139,8 @@ var ScrollbarMixin = {
   },
 
   handleMouseDown: function(axis, event) {
+    event.preventDefault();
+
     this.setState({
       axis: axis,
       initialPosition: {
