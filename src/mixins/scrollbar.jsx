@@ -232,7 +232,7 @@ var ScrollbarMixin = {
   scrollbarContainerStyle: function() {
     return {
       position: 'relative',
-      overflowX: 'hidden'
+      overflow: 'hidden'
     };
   }
 };
