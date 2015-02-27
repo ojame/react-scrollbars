@@ -27,7 +27,7 @@ var ScrollbarWrapper = React.createClass({
     return (
       <div style={this.scrollbarContainerStyle()} className={this.containerClass()}>
         <div ref="scrollableContent" style={this.scrollbarContentStyle()} onScroll={this.handleScroll} className={this.props.className}>
-          <div style={{position: 'relative'}}>
+          <div className="ScrollbarChildren" style={{position: 'relative'}}>
             {this.props.children}
 
             <iframe style={{width: '100%', height: '100%', position: 'absolute', top: '-100%', left: '-100%'}} frameBorder="0" src="javascript:window.onresize=function(){parent.postMessage({'func': 'onResize'}, '*')}" ></iframe>

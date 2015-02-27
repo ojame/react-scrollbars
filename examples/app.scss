@@ -3,13 +3,8 @@
 @import "typography.scss";
 
 html {
-  background: $secondary;
+  background: #ecf0f1;
   color: $main;
   font-family: "montserrat", Helvetica, sans-serif;
   font-weight: lighter;
-}
-
-.App {
-  width: 70%;
-  margin: 2em auto;
 }
