@@ -45,20 +45,16 @@ var ScrollbarMixin = {
     }
   },
 
-  getBoundingRect: function(element) {
-    return element.getBoundingClientRect();
-  },
-
   getRatio: function() {
     if (!this.refs.scrollableContent) {
       return {};
     }
 
-    var scrollbarLength = this.getScrollbarLength();
+    var element = this.refs.scrollableContent.getDOMNode();
 
     return {
-      horizontal: scrollbarLength.horizontal / this.refs.scrollableContent.getDOMNode().scrollWidth,
-      vertical: scrollbarLength.vertical / this.refs.scrollableContent.getDOMNode().scrollHeight
+      horizontal: this.getContentDimensions().width / element.scrollWidth,
+      vertical: this.getContentDimensions().height / element.scrollHeight
     };
   },
 
@@ -82,26 +78,22 @@ var ScrollbarMixin = {
       return {};
     }
 
+    var element = this.refs.scrollableContent.getDOMNode();
+
     return {
-      height: this.refs.scrollableContent.getDOMNode().clientHeight,
-      width: this.refs.scrollableContent.getDOMNode().clientWidth
+      height: element.clientHeight,
+      scrollHeight: element.scrollHeight,
+      scrollWidth: element.scrollWidth,
+      width: element.clientWidth,
     };
   },
 
   getScrollbarLength: function() {
-    if (this.scrollbarRequired().vertical) {
-      this.refs.scrollableContent.getDOMNode().style.paddingRight = this.state.nativeScrollbarWidth + 'px';
-    }
-
-    if (this.scrollbarRequired().horizontal) {
-      this.refs.scrollableContent.getDOMNode().style.marginBottom = this.state.nativeScrollbarWidth * -1 + 'px';
-    }
+    var horizontal = this.getContentDimensions().width - (this.props.scrollbarOffset * 2);
+    var vertical = this.getContentDimensions().height - (this.props.scrollbarOffset * 2);
 
 
-    var horizontal = this.getContentDimensions().width - ((this.props.scrollbarOffset || 0) * 2);
-    var vertical = this.getContentDimensions().height - ((this.props.scrollbarOffset || 0) * 2);
-
-    if (this.scrollbarRequired().vertical && this.scrollbarRequired().horizontal) {
+    if (this.scrollbarRequired().both) {
       horizontal = horizontal - this.state.nativeScrollbarWidth;
       vertical = vertical - this.state.nativeScrollbarWidth;
     }
@@ -112,13 +104,14 @@ var ScrollbarMixin = {
     };
   },
 
-  setStickPosition: function(event) {
-    this.setState({
-      stickPosition: {
-        horizontal: event.target.scrollLeft * this.getRatio().horizontal,
-        vertical: event.target.scrollTop * this.getRatio().vertical
-      }
-    });
+  calculateStickPosition: function(left, top) {
+    var scrollbarRatioWidth = this.getScrollbarLength().horizontal / this.getContentDimensions().scrollWidth;
+    var scrollbarRatioHeight = this.getScrollbarLength().vertical / this.getContentDimensions().scrollHeight;
+
+    return {
+      horizontal: left * scrollbarRatioWidth,
+      vertical: top * scrollbarRatioHeight
+    };
   },
 
   scrollbarRequired: function() {
@@ -126,16 +119,17 @@ var ScrollbarMixin = {
       return {};
     }
 
-    var content = this.refs.scrollableContent.getDOMNode();
-
     return {
-      horizontal: content.scrollWidth > this.getContentDimensions().width,
-      vertical: content.scrollHeight > this.getContentDimensions().height
+      horizontal: this.getRatio().horizontal < 1,
+      vertical: this.getRatio().vertical < 1,
+      both: this.getRatio().horizontal < 1 && this.getRatio().vertical < 1
     };
   },
 
   handleScroll: function(event) {
-    this.setStickPosition(event);
+    this.setState({
+      stickPosition: this.calculateStickPosition(event.target.scrollLeft, event.target.scrollTop)
+    });
   },
 
   handleMouseDown: function(axis, event) {
@@ -234,6 +228,20 @@ var ScrollbarMixin = {
       position: 'relative',
       overflow: 'hidden'
     };
+  },
+
+  scrollbarContentStyle: function() {
+    var style = {};
+
+    if (this.scrollbarRequired().vertical) {
+      style['padding-right'] = this.state.nativeScrollbarWidth;
+    }
+
+    if (this.scrollbarRequired().horizontal) {
+      style['margin-bottom'] = this.state.nativeScrollbarWidth * -1;
+    }
+
+    return style;
   }
 };
 
