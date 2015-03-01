@@ -4,6 +4,7 @@ var React = require('react');
 var BothScrollbar = require('./examples/both-scrollbar.jsx');
 var HorizontalScrollbar = require('./examples/horizontal-scrollbar.jsx');
 var VerticalScrollbar = require('./examples/vertical-scrollbar.jsx');
+var CustomScrollbar = require('./examples/custom-scrollbar.jsx');
 
 var Markdown2HTML = require('react-markdown-to-html');
 
@@ -53,6 +54,11 @@ module.exports = React.createClass({
             <div className="Home-content-block" id="both">
               <h3>Horizontal and Vertical Scrollbars</h3>
               <BothScrollbar />
+            </div>
+
+            <div className="Home-content-block" id="custom">
+              <h3>Custom Scrollbars</h3>
+              <CustomScrollbar />
             </div>
 
             <div className="Home-content-block" id="implementation">
