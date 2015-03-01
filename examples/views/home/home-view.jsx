@@ -22,13 +22,13 @@ module.exports = React.createClass({
       <div className="Home">
         <header className="Home-header">
           <h1>React-Scrollbars</h1>
-          <h2>stateful scrollbars that react loves</h2>
+          <h2><a href="https://github.com/ojame/react-scrollbar">view on github</a></h2>
         </header>
 
         <div className="Home-container">
           <aside className="Home-navigation">
             <p>
-              Super simple custom scrollbars, because OSX Lion decided not to play ball.
+              Super simple custom scrollbars. Works on Chrome, Firefox, Safari, IE9+ and mobile.
             </p>
             <nav>
               <ul>
@@ -69,6 +69,10 @@ module.exports = React.createClass({
             </div>
           </div>
         </div>
+
+        <footer className="Home-footer">
+          made by <a href="https://twitter.com/_ojame" target="_blank">@_ojame</a> and <a href="https://twitter.com/ncreen_same" target="_blank">@nscreen_same</a> on Macropod (<a href="https://twitter.com/MacropodHQ" target="_blank">@MacropodHQ</a>) time.
+        </footer>
 
       </div>
     );

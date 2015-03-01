@@ -24,3 +24,37 @@ var Component = React.createClass({
 
 module.exports = Component;
 ```
+
+## Properties
+
+```
+vertical={true}
+```
+
+**values**: `true`, `false`
+
+Force hide the scrollbars on the y-axis, regardless of what `overflow` value is set in the CSS. Works best with `overflow-y: hidden`.
+
+```
+horizontal={true}
+```
+
+**values**: `true`, `false`
+
+Force hide the scrollbars on the x-axis, regardless of what `overflow` value is set in the CSS. Works best with `overflow-x: hidden`.
+
+```
+offest={2}
+```
+
+**values**: any integer
+
+Changes the space (margin) around the scrollbar component.
+
+```
+scrollbarThickness={10}
+```
+
+**values**: any integer
+
+Controls the `width` (in y-axis) or `height` (in x-axis) of the scrollbar.

@@ -19,6 +19,11 @@
       text-align: right;
       margin: 0;
       float: right;
+
+      a:hover {
+        color: inherit;
+        text-decoration: none;
+      }
     }
   }
 
@@ -51,10 +56,6 @@
     li {
       list-style: none;
       margin: 0.5em 0;
-
-      a {
-        color: #2c3e50;
-      }
     }
   }
 
@@ -72,13 +73,23 @@
       padding: 0 0 0.5em 0;
     }
   }
+
+  .Home-footer {
+    text-align: center;
+    padding: 1em 0;
+
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
-code {
+pre {
   background: #fff;
   border-radius: 5px;
   padding: 1em;
   display: block;
+  margin-top: 2em;
 }
 
 .markdown {
@@ -90,4 +101,12 @@ code {
     font-size: 20px;
     margin-top: 3em;
   }
+}
+
+a, a:visited {
+  color: #2c3e50;
+}
+
+a:hover {
+  color: #3498db;
 }

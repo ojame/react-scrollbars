@@ -4,7 +4,7 @@ var _ = require('lodash-node');
 var Scrollbar = React.createClass({
   getDefaultProps: function() {
     return {
-      offset: 0,
+      offset: 2,
       scrollbarThickness: 10,
       stickLength: {
         horizontal: 100,
