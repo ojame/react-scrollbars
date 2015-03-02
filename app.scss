@@ -1,0 +1,10 @@
+@import "colors.scss";
+@import "fonts.scss";
+@import "typography.scss";
+
+html {
+  background: #ecf0f1;
+  color: $main;
+  font-family: "montserrat", Helvetica, sans-serif;
+  font-weight: lighter;
+}
