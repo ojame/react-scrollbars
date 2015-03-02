@@ -1,10 +1,6 @@
 /** @jsx React.DOM */
 'use strict'
 var React = require('react');
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
 
 var Home = require('./views/home/index.jsx');
 
@@ -19,19 +15,11 @@ var App = React.createClass({
         </header>
 
         <div className="App-content">
-          <RouteHandler />
+          <Home />
         </div>
       </div>
     );
   }
 });
 
-var routes = (
-  <Route name="app" path="/" handler={App}>
-    <DefaultRoute name="home" handler={Home}/>
-  </Route>
-);
-
-Router.run(routes, function (Handler, state) {
-  React.render(<Handler />, document.body);
-});
+React.render(<App />, document.body);
