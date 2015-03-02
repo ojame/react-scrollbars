@@ -2,6 +2,9 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './',
+  output: {
+    filename: 'bundle.js',
+  },
   resolve: {
     extensions: ['', '.js', '.jsx', '.scss', '.css']
   },
@@ -24,7 +27,8 @@ module.exports = {
           'sass-loader?includePaths[]=./style-guide,includePaths[]=./node_modules,includePaths[]=./style'
         ],
       },
-      { test: /\.(png|woff)$/, loader: 'url-loader?limit=100000' }
+      { test: /\.(png|woff)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.md$/, loader: "html!markdown" }
     ]
   }
 };

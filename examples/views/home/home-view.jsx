@@ -6,8 +6,6 @@ var HorizontalScrollbar = require('./examples/horizontal-scrollbar.jsx');
 var VerticalScrollbar = require('./examples/vertical-scrollbar.jsx');
 var CustomScrollbar = require('./examples/custom-scrollbar.jsx');
 
-var Markdown2HTML = require('react-markdown-to-html');
-
 require('./home-view.scss');
 
 module.exports = React.createClass({
@@ -64,7 +62,7 @@ module.exports = React.createClass({
             <div className="Home-content-block" id="implementation">
               <h3>Implementation</h3>
               <div className="markdown">
-                {<Markdown2HTML src="README.md" />}
+                <div dangerouslySetInnerHTML={{__html: require('../../../README.md')}}></div>
               </div>
             </div>
           </div>
