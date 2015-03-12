@@ -20,7 +20,7 @@ var ScrollbarMixin = {
       axis: null,
       initialMovement: false,
       scrolling: false,
-      nativeScrollbarWidth: 15,
+      nativeScrollbarWidth: 0,
       firstRender: null
     };
   },
@@ -32,8 +32,20 @@ var ScrollbarMixin = {
   },
 
   componentDidMount: function() {
+    var scrollbarElement = document.createElement('div');
+    scrollbarElement.style.width = '100px';
+    scrollbarElement.style.height = '100px';
+    scrollbarElement.style.overflow = 'scroll';
+    scrollbarElement.style.position = 'absolute';
+    scrollbarElement.style.top = '-100%';
+    scrollbarElement.style.left = '-100%';
+    document.body.appendChild(scrollbarElement);
+
     this.setState({
+      nativeScrollbarWidth: scrollbarElement.offsetWidth - scrollbarElement.clientWidth,
       firstRender: true
+    }, function() {
+      document.body.removeChild(scrollbarElement);
     });
   },
 
