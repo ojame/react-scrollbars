@@ -1,7 +1,11 @@
 {
   "name": "react-scrollbars",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Stateful scrollbar component for React",
+  "keywords": [
+    "react-component",
+    "scrollbars"
+  ],
   "scripts": {
     "start": "cd examples && webpack-dev-server --d --hot --inline --progress --colors",
     "build": "./node_modules/jsx-loader/node_modules/.bin/jsx --harmony --no-cache-dir -x jsx src lib",
