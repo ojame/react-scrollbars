@@ -2,3 +2,13 @@
   -webkit-touch-callout: none;
   user-select: none;
 }
+
+.ScrollbarContent::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.ScrollbarContent::scrollbar {
+  width: 0;
+  height: 0;
+}

@@ -2,6 +2,8 @@
 var React = require('react/addons');
 var _ = require('lodash-node');
 
+require('./scrollbar.scss');
+
 var ScrollbarMixin = {
   getInitialState: function() {
     return {
