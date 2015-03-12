@@ -26,7 +26,7 @@ var ScrollbarWrapper = React.createClass({
   render: function() {
     return (
       <div style={this.scrollbarContainerStyle()} className={this.containerClass()}>
-        <div ref="scrollableContent" style={this.scrollbarContentStyle()} onScroll={this.handleScroll} className={this.props.className}>
+        <div ref="scrollableContent" style={this.scrollbarContentStyle()} onScroll={this.handleScroll} className={this.props.className + ' ScrollbarContent'}>
           <div className="ScrollbarChildren" style={{position: 'relative'}}>
             {this.props.children}
 
