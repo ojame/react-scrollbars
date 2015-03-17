@@ -26,7 +26,7 @@ module.exports = React.createClass({
         <div className="Home-container">
           <aside className="Home-navigation">
             <p>
-              Super simple custom scrollbars. Works on Chrome, Firefox, Safari, IE9+ and mobile.
+              Super simple custom scrollbars. Works on Chrome, Firefox, Safari, IE10+ and mobile.
             </p>
             <nav>
               <ul>
