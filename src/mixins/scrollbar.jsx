@@ -248,11 +248,11 @@ var ScrollbarMixin = {
     var style = {};
 
     if (this.scrollbarRequired().vertical) {
-      style['padding-right'] = this.state.nativeScrollbarWidth;
+      style['paddingRight'] = this.state.nativeScrollbarWidth;
     }
 
     if (this.scrollbarRequired().horizontal) {
-      style['margin-bottom'] = this.state.nativeScrollbarWidth * -1;
+      style['marginBottom'] = this.state.nativeScrollbarWidth * -1;
     }
 
     return style;
