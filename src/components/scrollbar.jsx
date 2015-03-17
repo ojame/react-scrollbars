@@ -29,7 +29,6 @@ var Scrollbar = React.createClass({
 
   verticalScrollbar: function(style, stickStyle) {
     if (this.props.vertical && this.props.showScrollbar.vertical) {
-      console.log(stickStyle.MsTransform)
       return (
         <div className="Scrollbar" style={style}>
           <div className="Scrollbar-stick" style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
