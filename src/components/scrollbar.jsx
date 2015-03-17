@@ -29,6 +29,7 @@ var Scrollbar = React.createClass({
 
   verticalScrollbar: function(style, stickStyle) {
     if (this.props.vertical && this.props.showScrollbar.vertical) {
+      console.log(stickStyle.MsTransform)
       return (
         <div className="Scrollbar" style={style}>
           <div className="Scrollbar-stick" style={stickStyle} onMouseDown={this.props.onMouseDown.bind(null, 'y')}></div>
@@ -49,6 +50,14 @@ var Scrollbar = React.createClass({
     } else {
       return null;
     }
+  },
+
+  getTransform: function(x, y) {
+    var translate = 'translate(' + x + 'px, ' + y + 'px)';
+    return {
+      WebkitTransform: translate,
+      transform: translate
+    };
   },
 
   render: function() {
@@ -101,15 +110,13 @@ var Scrollbar = React.createClass({
     var scrollbarStickStyleVertical = _.extend({
       width: this.props.scrollbarThickness,
       height: this.props.stickLength.vertical,
-      top: this.props.stickPosition.vertical,
       right: 0
-    }, stickStyle);
+    }, this.getTransform(0, this.props.stickPosition.vertical), stickStyle);
 
     var scrollbarStickStyleHorizontal = _.extend({
       height: this.props.scrollbarThickness,
-      width: this.props.stickLength.horizontal,
-      left: this.props.stickPosition.horizontal
-    }, stickStyle);
+      width: this.props.stickLength.horizontal
+    }, this.getTransform(this.props.stickPosition.horizontal, 0), stickStyle);
 
     return (
       <div className="Scrollbar-wrapper">
