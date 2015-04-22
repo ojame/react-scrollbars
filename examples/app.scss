@@ -8,3 +8,18 @@ html {
   font-family: "montserrat", Helvetica, sans-serif;
   font-weight: lighter;
 }
+
+.ScrollbarContainer--scrolling {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.ScrollbarContainer>div::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.ScrollbarContainer>div::scrollbar {
+  width: 0;
+  height: 0;
+}

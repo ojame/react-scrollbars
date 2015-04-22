@@ -58,3 +58,25 @@ scrollbarThickness={10}
 **values**: any integer
 
 Controls the `width` (in y-axis) or `height` (in x-axis) of the scrollbar.
+
+
+## Styles
+
+For optimized behavior add the following definitions to your stylesheets:
+
+```
+  .ScrollbarContainer--scrolling {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+  
+  .ScrollbarContainer>div::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  
+  .ScrollbarContainer>div::scrollbar {
+    width: 0;
+    height: 0;
+  }
+```
