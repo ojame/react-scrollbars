@@ -7,7 +7,7 @@
     "scrollbars"
   ],
   "scripts": {
-    "start": "cd examples && webpack-dev-server --d --hot --inline --progress --colors",
+    "start": "cd examples && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
     "build": "./node_modules/jsx-loader/node_modules/.bin/jsx --harmony --no-cache-dir -x jsx src lib",
     "build-www": "cd examples && webpack"
   },

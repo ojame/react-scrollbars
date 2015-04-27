@@ -29,7 +29,8 @@ var ScrollbarMixin = {
 
   getDefaultProps: function() {
     return {
-      scrollbarOffset: 2
+      scrollbarOffset: 2,
+      overflowTolerance: 3
     };
   },
 
@@ -133,10 +134,14 @@ var ScrollbarMixin = {
       return {};
     }
 
+    var dimensions = this.getContentDimensions();
+    var horizontalRequired = dimensions.scrollWidth - this.props.overflowTolerance > dimensions.width;
+    var verticalRequired = dimensions.scrollHeight - this.props.overflowTolerance > dimensions.height;
+
     return {
-      horizontal: this.getRatio().horizontal < 1,
-      vertical: this.getRatio().vertical < 1,
-      both: this.getRatio().horizontal < 1 && this.getRatio().vertical < 1
+      horizontal: horizontalRequired,
+      vertical: verticalRequired,
+      both: horizontalRequired && verticalRequired
     };
   },
 
