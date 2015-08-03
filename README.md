@@ -8,7 +8,7 @@ npm install react-scrollbars --save
 
 ```
 var React = require('react');
-var ScrollbarWrapper = require('react-scrollbar').ScrollbarWrapper;
+var ScrollbarWrapper = require('react-scrollbars').ScrollbarWrapper;
 
 var Component = React.createClass({
   render: function() {
