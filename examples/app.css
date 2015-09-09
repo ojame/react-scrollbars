@@ -1,0 +1,35 @@
+html {
+  background: #ecf0f1;
+  color: #1ABC9C;
+  font-family: "montserrat", Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+.ScrollbarContainer--scrolling {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.ScrollbarContainer>div::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.ScrollbarContainer>div::scrollbar {
+  width: 0;
+  height: 0;
+}
+
+@font-face {
+  font-family: 'montserrat';
+  src: url('./assets/montserrat-hairline-webfont.woff') format('woff');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'montserrat';
+  src: url('./assets/montserrat-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

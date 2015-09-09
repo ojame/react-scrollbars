@@ -16,18 +16,18 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.jsx$/, loaders: ['react-hot-loader', 'jsx-loader'] },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style-loader',
-          'css-loader',
-          'autoprefixer-loader',
-          'sass-loader?includePaths[]=./style-guide,includePaths[]=./node_modules,includePaths[]=./style'
-        ],
+      { test: /\.jsx$/, loaders: [
+          'react-hot',
+          'jsx',
+        ]
       },
-      { test: /\.(png|woff)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.css$/, loaders: [
+          'style',
+          'css',
+          'autoprefixer',
+        ]
+      },
+      { test: /\.(png|woff)$/, loader: 'url?limit=100000' },
       { test: /\.md$/, loader: "html!markdown" }
     ]
   }
