@@ -1,6 +1,6 @@
 var React = require('react');
 var ScrollbarWrapper = require('react-scrollbar').ScrollbarWrapper;
-require('./vertical-scrollbar.scss');
+require('./vertical-scrollbar.css');
 
 var VerticalScrollbar = React.createClass({
   render: function() {

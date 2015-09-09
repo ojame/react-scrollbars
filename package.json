@@ -25,7 +25,6 @@
     "jsx-loader": ">=0.12.2",
     "markdown-loader": "^0.1.2",
     "normalize.css": "^3.0.2",
-    "sass-loader": "^0.3.1",
     "style-loader": "^0.8.2",
     "url-loader": "^0.5.5",
     "webpack": "^1.4.13",
@@ -36,6 +35,6 @@
     "react": ">=0.12.2"
   },
   "dependencies": {
-    "lodash-node": "^2.4.1"
+    "lodash": "^3.10.1"
   }
 }
