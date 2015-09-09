@@ -17,17 +17,17 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx$/, loaders: [
-          'react-hot-loader',
-          'jsx-loader',
+          'react-hot',
+          'jsx',
         ]
       },
       { test: /\.css$/, loaders: [
-          'style-loader',
-          'css-loader',
-          'autoprefixer-loader',
+          'style',
+          'css',
+          'autoprefixer',
         ]
       },
-      { test: /\.(png|woff)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.(png|woff)$/, loader: 'url?limit=100000' },
       { test: /\.md$/, loader: "html!markdown" }
     ]
   }
