@@ -1,5 +1,5 @@
 module.exports = {
-  Scrollbar: require('./components/scrollbar'),
-  ScrollbarWrapper: require('./components/scrollbar-wrapper'),
-  Mixin: require('./mixins/scrollbar')
+  Sticks: require('./components/sticks'),
+  Scrollbars: require('./components/scrollbars'),
+  Wrapper: require('./components/wrapper')
 };

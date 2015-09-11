@@ -1,8 +1,8 @@
 import React from 'react';
-import ScrollbarMixin from '../mixins/scrollbar';
-import Scrollbar from './scrollbar';
+import Wrapper from './wrapper';
+import Sticks from './sticks';
 
-export default class ScrollbarWrapper extends ScrollbarMixin {
+export default class Scrollbars extends Wrapper {
   componentDidMount() {
     window.addEventListener('message', this.handleReceive, false);
   }
@@ -29,7 +29,7 @@ export default class ScrollbarWrapper extends ScrollbarMixin {
             <iframe style={{width: '100%', height: '100%', position: 'absolute', top: '-100%', left: '-100%'}} frameBorder="0" src="javascript:window.onresize=function(){parent.postMessage({'func': 'onResize'}, '*')}" ></iframe>
           </div>
 
-          <Scrollbar
+          <Sticks
             {... this.props}
             {... this.getScrollbarProps()} />
         </div>

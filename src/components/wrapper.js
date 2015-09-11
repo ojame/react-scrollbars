@@ -1,7 +1,7 @@
 import React from 'react/addons';
 import _ from 'lodash';
 
-export default class ScrollbarMixin extends React.Component {
+export default class Wrapper extends React.Component {
   static defaultProps = {
     scrollbarOffset: 2,
     overflowTolerance: 3

@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-var Scrollbar = React.createClass({
+var Sticks = React.createClass({
   getDefaultProps: function() {
     return {
       offset: 2,
@@ -120,4 +120,4 @@ var Scrollbar = React.createClass({
   }
 });
 
-module.exports = Scrollbar;
+module.exports = Sticks;
