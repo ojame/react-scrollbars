@@ -6,14 +6,8 @@ import CustomScrollbar from './examples/custom-scrollbar.js';
 
 require('./home-view.css');
 
-module.exports = React.createClass({
-
-  getInitialState: function() {
-    return {
-    };
-  },
-
-  render: function () {
+export default class HomeView extends React.Component {
+  render() {
     return (
       <div className="Home">
         <header className="Home-header">
@@ -73,4 +67,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+};

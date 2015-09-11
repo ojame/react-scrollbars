@@ -2,8 +2,8 @@ import React from 'react';
 import {ScrollbarWrapper} from '../../../../index.js';
 require('./vertical-scrollbar.css');
 
-var VerticalScrollbar = React.createClass({
-  render: function() {
+export default class VerticalScrollbar extends React.Component {
+  render() {
     return (
       <ScrollbarWrapper className="ScrollbarContent--vertical">
         <div style={{padding: 25}}>
@@ -13,6 +13,4 @@ var VerticalScrollbar = React.createClass({
       </ScrollbarWrapper>
     );
   }
-});
-
-module.exports = VerticalScrollbar;
+};
