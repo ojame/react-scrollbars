@@ -4,7 +4,11 @@ module.exports = {
   entry: './src',
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'jsx-loader?harmony' }
+      {
+        test: /\.js/,
+        exclude: /__examples__/,
+        loader: 'babel'
+      }
     ]
   },
   output: {
@@ -16,7 +20,7 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': 'NODE_ENV': JSON.stringify('production')
       }
     }),
     new webpack.optimize.UglifyJsPlugin({

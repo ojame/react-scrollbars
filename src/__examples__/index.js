@@ -1,8 +1,6 @@
-/** @jsx React.DOM */
-'use strict'
 var React = require('react');
 
-var Home = require('./views/home/index.jsx');
+var Home = require('./views/home/index.js');
 
 require('normalize.css/normalize.css');
 require('./app.css');

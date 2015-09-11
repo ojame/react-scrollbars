@@ -1,5 +1,5 @@
 var React = require('react');
-var ScrollbarWrapper = require('react-scrollbar').ScrollbarWrapper;
+var ScrollbarWrapper = require('../../../../index.js').ScrollbarWrapper;
 require('./horizontal-scrollbar.css');
 
 var HorizontalScrollbar = React.createClass({

@@ -1,10 +1,8 @@
-/** @jsx React.DOM */
-
 var React = require('react');
-var BothScrollbar = require('./examples/both-scrollbar.jsx');
-var HorizontalScrollbar = require('./examples/horizontal-scrollbar.jsx');
-var VerticalScrollbar = require('./examples/vertical-scrollbar.jsx');
-var CustomScrollbar = require('./examples/custom-scrollbar.jsx');
+var BothScrollbar = require('./examples/both-scrollbar.js');
+var HorizontalScrollbar = require('./examples/horizontal-scrollbar.js');
+var VerticalScrollbar = require('./examples/vertical-scrollbar.js');
+var CustomScrollbar = require('./examples/custom-scrollbar.js');
 
 require('./home-view.css');
 
@@ -62,7 +60,7 @@ module.exports = React.createClass({
             <div className="Home-content-block" id="implementation">
               <h3>Implementation</h3>
               <div className="markdown">
-                <div dangerouslySetInnerHTML={{__html: require('../../../README.md')}}></div>
+                <div dangerouslySetInnerHTML={{__html: require('../../../../README.md')}}></div>
               </div>
             </div>
           </div>

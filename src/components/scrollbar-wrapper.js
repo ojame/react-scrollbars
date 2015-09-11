@@ -1,4 +1,3 @@
-'use strict';
 var React = require('react/addons');
 
 var ScrollbarMixin = require('../mixins/scrollbar');
