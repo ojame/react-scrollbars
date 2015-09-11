@@ -7,9 +7,9 @@
     "scrollbars"
   ],
   "scripts": {
-    "start": "cd examples && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
-    "build": "./node_modules/jsx-loader/node_modules/.bin/jsx --harmony --no-cache-dir -x jsx src lib",
-    "build-www": "cd examples && webpack"
+    "start": "cd src/__examples__ && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
+    "build": "npm run webpack",
+    "build-www": "cd src/__examples__ && webpack"
   },
   "main": "lib/index.js",
   "author": "James Coleman",
@@ -20,16 +20,18 @@
   "homepage": "https://github.com/ojame/react-scrollbars",
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
+    "babel-loader": "^5.3.2",
     "css-loader": "^0.17.0",
     "html-loader": "^0.3.0",
     "jsx-loader": ">=0.12.2",
     "markdown-loader": "^0.1.2",
     "normalize.css": "^3.0.2",
+    "react-hot-loader": "^1.1.1",
+    "resolve": "^1.1.6",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.5",
     "webpack": "^1.5.3",
-    "webpack-dev-server": "^1.7.0",
-    "react-hot-loader": "^1.1.1"
+    "webpack-dev-server": "^1.7.0"
   },
   "peerDependencies": {
     "react": ">=0.12.2"

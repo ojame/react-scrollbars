@@ -1,29 +1,25 @@
-'use strict';
-var React = require('react/addons');
+import React from 'react';
+import ScrollbarMixin from '../mixins/scrollbar';
+import Scrollbar from './scrollbar';
 
-var ScrollbarMixin = require('../mixins/scrollbar');
-var Scrollbar = require('./scrollbar');
-
-var ScrollbarWrapper = React.createClass({
-  mixins: [ScrollbarMixin],
-
-  componentDidMount: function() {
+export default class ScrollbarWrapper extends ScrollbarMixin {
+  componentDidMount() {
     window.addEventListener('message', this.handleReceive, false);
-  },
+  }
 
-  handleReceive: function(event) {
+  handleReceive(event) {
     var data = event.data;
 
     if (typeof(this[data.func]) === 'function') {
       this[data.func]();
     }
-  },
+  }
 
-  onResize: function() {
+  onResize() {
     this.handleContentResize();
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div style={this.scrollbarContainerStyle()} className={this.containerClass()}>
         <div ref="scrollableContent" style={this.scrollbarContentStyle()} onScroll={this.handleScroll} className={this.props.className + ' ScrollbarContent'}>
@@ -40,6 +36,4 @@ var ScrollbarWrapper = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = ScrollbarWrapper;
+};

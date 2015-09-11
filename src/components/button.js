@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 var style = {
   background: 'transparent',
@@ -8,12 +8,10 @@ var style = {
   padding: '0.5em 1em'
 };
 
-var Button = React.createClass({
-  render: function() {
+export default class Button extends React.Component {
+  render() {
     return (
       <button style={style} type={this.props.type} className="Button">{this.props.children}</button>
     );
   }
-});
-
-module.exports = Button;
+};

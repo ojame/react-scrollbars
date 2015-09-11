@@ -1,9 +1,9 @@
-var React = require('react');
-var ScrollbarWrapper = require('react-scrollbar').ScrollbarWrapper;
+import React from 'react';
+import {ScrollbarWrapper} from '../../../../index.js';
 require('./horizontal-scrollbar.css');
 
-var HorizontalScrollbar = React.createClass({
-  render: function() {
+export default class HorizontalScrollbar extends React.Component {
+  render() {
     return (
       <ScrollbarWrapper className="ScrollbarContent--horizontal">
         <div className="ScrollbarContent--horizontal-columnContainer">
@@ -34,7 +34,5 @@ var HorizontalScrollbar = React.createClass({
       </ScrollbarWrapper>
     );
   }
-});
-
-module.exports = HorizontalScrollbar;
+};
 

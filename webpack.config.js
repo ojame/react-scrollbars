@@ -4,7 +4,11 @@ module.exports = {
   entry: './src',
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'jsx-loader?harmony' }
+      {
+        test: /\.js/,
+        exclude: /__examples__/,
+        loader: 'babel'
+      }
     ]
   },
   output: {

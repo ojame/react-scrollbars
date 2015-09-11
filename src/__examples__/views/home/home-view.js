@@ -1,21 +1,13 @@
-/** @jsx React.DOM */
-
-var React = require('react');
-var BothScrollbar = require('./examples/both-scrollbar.jsx');
-var HorizontalScrollbar = require('./examples/horizontal-scrollbar.jsx');
-var VerticalScrollbar = require('./examples/vertical-scrollbar.jsx');
-var CustomScrollbar = require('./examples/custom-scrollbar.jsx');
+import React from 'react';
+import BothScrollbar from './examples/both-scrollbar.js';
+import HorizontalScrollbar from './examples/horizontal-scrollbar.js';
+import VerticalScrollbar from './examples/vertical-scrollbar.js';
+import CustomScrollbar from './examples/custom-scrollbar.js';
 
 require('./home-view.css');
 
-module.exports = React.createClass({
-
-  getInitialState: function() {
-    return {
-    };
-  },
-
-  render: function () {
+export default class HomeView extends React.Component {
+  render() {
     return (
       <div className="Home">
         <header className="Home-header">
@@ -62,7 +54,7 @@ module.exports = React.createClass({
             <div className="Home-content-block" id="implementation">
               <h3>Implementation</h3>
               <div className="markdown">
-                <div dangerouslySetInnerHTML={{__html: require('../../../README.md')}}></div>
+                <div dangerouslySetInnerHTML={{__html: require('../../../../README.md')}}></div>
               </div>
             </div>
           </div>
@@ -75,4 +67,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+};

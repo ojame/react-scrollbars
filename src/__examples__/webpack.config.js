@@ -6,22 +6,21 @@ module.exports = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss', '.css']
+    extensions: ['', '.js', '.css']
   },
-  plugins: [
-    new webpack.NormalModuleReplacementPlugin( // allow examples to include react-scrollbar
-      /^react-scrollbar$/,
-      __dirname + '/../src'
-    )
-  ],
   module: {
     loaders: [
-      { test: /\.jsx$/, loaders: [
+      {
+        test: /\.js$/,
+        loaders: [
           'react-hot',
-          'jsx',
-        ]
+          'babel?stage=0',
+        ],
+        exclude: /node_modules/,
       },
-      { test: /\.css$/, loaders: [
+      {
+        test: /\.css$/,
+        loaders: [
           'style',
           'css',
           'autoprefixer',
@@ -30,5 +29,12 @@ module.exports = {
       { test: /\.(png|woff)$/, loader: 'url?limit=100000' },
       { test: /\.md$/, loader: "html!markdown" }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+  ]
 };

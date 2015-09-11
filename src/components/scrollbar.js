@@ -1,5 +1,5 @@
-var React = require('react');
-var _ = require('lodash-node');
+import React from 'react';
+import _ from 'lodash';
 
 var Scrollbar = React.createClass({
   getDefaultProps: function() {
