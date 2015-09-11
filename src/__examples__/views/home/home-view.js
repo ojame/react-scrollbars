@@ -1,8 +1,8 @@
-var React = require('react');
-var BothScrollbar = require('./examples/both-scrollbar.js');
-var HorizontalScrollbar = require('./examples/horizontal-scrollbar.js');
-var VerticalScrollbar = require('./examples/vertical-scrollbar.js');
-var CustomScrollbar = require('./examples/custom-scrollbar.js');
+import React from 'react';
+import BothScrollbar from './examples/both-scrollbar.js';
+import HorizontalScrollbar from './examples/horizontal-scrollbar.js';
+import VerticalScrollbar from './examples/vertical-scrollbar.js';
+import CustomScrollbar from './examples/custom-scrollbar.js';
 
 require('./home-view.css');
 

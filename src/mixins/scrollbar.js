@@ -1,5 +1,5 @@
-var React = require('react/addons');
-var _ = require('lodash-node');
+import React from 'react/addons';
+import _ from 'lodash';
 
 var ScrollbarMixin = {
   getInitialState: function() {

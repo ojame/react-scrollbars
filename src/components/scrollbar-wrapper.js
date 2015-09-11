@@ -1,7 +1,6 @@
-var React = require('react/addons');
-
-var ScrollbarMixin = require('../mixins/scrollbar');
-var Scrollbar = require('./scrollbar');
+import React from 'react';
+import ScrollbarMixin from '../mixins/scrollbar';
+import Scrollbar from './scrollbar';
 
 var ScrollbarWrapper = React.createClass({
   mixins: [ScrollbarMixin],
