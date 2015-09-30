@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from './views/home/index.js';
+import Home from './views/home/index';
 
 require('normalize.css/normalize.css');
 require('./app.css');
