@@ -24,7 +24,9 @@ export default class Wrapper extends React.Component {
     initialMovement: false,
     scrolling: false,
     nativeScrollbarWidth: 0,
-    firstRender: null
+    firstRender: null,
+    width: 0,
+    height: 0,
   }
 
   componentDidMount = () => {
@@ -139,6 +141,7 @@ export default class Wrapper extends React.Component {
   }
 
   handleScroll = (event) => {
+    console.log(event.target.scrollTop)
     this.setState({
       stickPosition: this.calculateStickPosition(event.target.scrollLeft, event.target.scrollTop)
     });
@@ -235,22 +238,18 @@ export default class Wrapper extends React.Component {
     });
   }
 
-  scrollbarContainerStyle() {
-    return {
-      position: 'relative',
-      overflow: 'hidden'
-    };
-  }
-
   scrollbarContentStyle = () => {
-    var style = {};
+    var style = {
+    };
 
     if (this.scrollbarRequired().vertical) {
-      style['paddingRight'] = this.state.nativeScrollbarWidth;
+      style.marginRight = this.state.nativeScrollbarWidth * -1;
+      //style.width = this.getContentDimensions().width + (this.state.nativeScrollbarWidth * 2);
     }
 
     if (this.scrollbarRequired().horizontal) {
-      style['marginBottom'] = this.state.nativeScrollbarWidth * -1;
+      style.marginBottom = this.state.nativeScrollbarWidth * -1;
+      //style.height = this.getContentDimensions().height + (this.state.nativeScrollbarWidth * 2);
     }
 
     return style;

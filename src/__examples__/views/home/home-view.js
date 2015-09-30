@@ -40,7 +40,7 @@ export default class HomeView extends React.Component {
               <h3>Horizontal Scrollbars</h3>
               <HorizontalScrollbar />
             </div>
-
+{/*
             <div className="Home-content-block" id="both">
               <h3>Horizontal and Vertical Scrollbars</h3>
               <BothScrollbar />
@@ -50,7 +50,7 @@ export default class HomeView extends React.Component {
               <h3>Custom Scrollbars</h3>
               <CustomScrollbar />
             </div>
-
+*/}
             <div className="Home-content-block" id="implementation">
               <h3>Implementation</h3>
               <div className="markdown">

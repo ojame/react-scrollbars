@@ -1,13 +1,10 @@
 .ScrollbarContent--horizontal {
+  white-space: nowrap;
   width: 100%;
   height: 300px;
   overflow-x: auto;
   overflow-y: hidden;
   background: rgb(253, 253, 253);
-}
-
-.ScrollbarContent--horizontal-columnContainer {
-  white-space: nowrap;
 }
 
 .ScrollbarContent--horizontal-column {
