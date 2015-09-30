@@ -1,0 +1,16 @@
+.vertical, .horizontal, .none {
+  padding: 25px;
+  height: 400px;
+}
+
+.horizontal {
+  overflow-y: hidden;
+}
+
+.vertical {
+  overflow: auto;
+}
+
+.horizontal p {
+  width: 1000px;
+}

@@ -1,12 +1,27 @@
 import React from 'react';
-import BothScrollbar from './partials/both-scrollbar.js';
-import HorizontalScrollbar from './partials/horizontal-scrollbar.js';
-import VerticalScrollbar from './partials/vertical-scrollbar.js';
+import ScrollbarExample from './partials/scrollbar.js';
 import CustomScrollbar from './partials/custom-scrollbar.js';
 
 require('./index.css');
 
 export default class HomeView extends React.Component {
+  state = {
+    vertical: true,
+    horizontal: false,
+  };
+
+  handleVertical = (evt) => {
+    this.setState({
+      vertical: !this.state.vertical,
+    })
+  };
+
+  handleHorizontal = (evt) => {
+    this.setState({
+      horizontal: !this.state.horizontal,
+    })
+  };
+
   render() {
     return (
       <div className="Home">
@@ -32,25 +47,33 @@ export default class HomeView extends React.Component {
 
           <div className="Home-content">
             <div className="Home-content-block" id="vertical">
-              <h3>Vertical Scrollbars</h3>
-              <VerticalScrollbar />
+              <h3>Example</h3>
+
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={this.handleVertical}
+                    checked={this.state.vertical}
+                  />
+                    Vertical
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={this.handleHorizontal}
+                    checked={this.state.horizontal}
+                  />
+                    Horizontal
+                </label>
+              </div>
+
+              <ScrollbarExample
+                vertical={this.state.vertical}
+                horizontal={this.state.horizontal}
+              />
             </div>
 
-            <div className="Home-content-block" id="horizontal">
-              <h3>Horizontal Scrollbars</h3>
-              <HorizontalScrollbar />
-            </div>
-{/*
-            <div className="Home-content-block" id="both">
-              <h3>Horizontal and Vertical Scrollbars</h3>
-              <BothScrollbar />
-            </div>
-
-            <div className="Home-content-block" id="custom">
-              <h3>Custom Scrollbars</h3>
-              <CustomScrollbar />
-            </div>
-*/}
             <div className="Home-content-block" id="implementation">
               <h3>Implementation</h3>
               <div className="markdown">
