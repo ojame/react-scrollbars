@@ -20,6 +20,8 @@ export default class Wrapper extends React.Component {
       x: 0,
       y: 0
     },
+    scrollWidth: 0,
+    scrollHeight: 0,
     axis: null,
     initialMovement: false,
     scrolling: false,
@@ -48,6 +50,16 @@ export default class Wrapper extends React.Component {
   }
 
   componentDidUpdate = () => {
+    const contentDimensions = this.getContentDimensions();
+    if (contentDimensions.scrollWidth !== this.state.scrollWidth || contentDimensions.scrollHeight !== this.state.scrollHeight) {
+      this.setState({
+        scrollWidth: contentDimensions.scrollWidth,
+        scrollHeight: contentDimensions.scrollHeight,
+      });
+
+      this.handleContentResize();
+    }
+
     if (this.state.firstRender) {
       this.setState({
         firstRender: false
@@ -141,7 +153,6 @@ export default class Wrapper extends React.Component {
   }
 
   handleScroll = (event) => {
-    console.log(event.target.scrollTop)
     this.setState({
       stickPosition: this.calculateStickPosition(event.target.scrollLeft, event.target.scrollTop)
     });
