@@ -8,6 +8,10 @@ export default function Scrollbars(Component) {
       window.addEventListener('message', this.handleReceive, false);
     }
 
+    componentWillUnmount() {
+      window.removeEventListener('message', this.handleReceive, false);
+    }
+
     handleReceive(event) {
       var data = event.data;
 
