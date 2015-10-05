@@ -32,6 +32,8 @@ export default class Wrapper extends React.Component {
   }
 
   componentDidMount = () => {
+    window.addEventListener('message', this.handleReceive, false);
+
     var scrollbarElement = document.createElement('div');
     scrollbarElement.style.width = '100px';
     scrollbarElement.style.height = '100px';
@@ -47,6 +49,22 @@ export default class Wrapper extends React.Component {
     }, function() {
       document.body.removeChild(scrollbarElement);
     });
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('message', this.handleReceive, false);
+  }
+
+  handleReceive = (event) => {
+    var data = event.data;
+
+    if (typeof(this[data.func]) === 'function') {
+      this[data.func]();
+    }
+  }
+
+  onResize() {
+    this.handleContentResize();
   }
 
   componentDidUpdate = () => {

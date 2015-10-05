@@ -4,26 +4,6 @@ import Sticks from './sticks';
 
 export default function Scrollbars(Component) {
   return class ScrollbaredContent extends Wrapper {
-    componentDidMount() {
-      window.addEventListener('message', this.handleReceive, false);
-    }
-
-    componentWillUnmount() {
-      window.removeEventListener('message', this.handleReceive, false);
-    }
-
-    handleReceive(event) {
-      var data = event.data;
-
-      if (typeof(this[data.func]) === 'function') {
-        this[data.func]();
-      }
-    }
-
-    onResize() {
-      this.handleContentResize();
-    }
-
     render() {
       return (
         <div style={{position: 'relative',overflow: 'hidden'}}>
