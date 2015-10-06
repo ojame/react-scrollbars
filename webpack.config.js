@@ -7,7 +7,7 @@ module.exports = {
       {
         test: /\.js/,
         exclude: /__examples__/,
-        loader: 'babel'
+        loader: 'babel?stage=0'
       }
     ]
   },

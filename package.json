@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "start": "cd src/__examples__ && webpack-dev-server --port 9090 --d --hot --inline --progress --colors",
-    "build": "npm run webpack",
+    "build": "babel --stage 0 src --out-dir lib --ignore __examples__",
     "build-www": "cd src/__examples__ && webpack"
   },
   "main": "lib/index.js",
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/ojame/react-scrollbars",
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
+    "babel": "^5.8.23",
     "babel-loader": "^5.3.2",
     "css-loader": "^0.17.0",
     "html-loader": "^0.3.0",
