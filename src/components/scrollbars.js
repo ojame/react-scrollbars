@@ -13,8 +13,8 @@ export default function Scrollbars(Component) {
           </div>
 
           <Sticks
-            {... this.props}
-            {... this.getScrollbarProps()} />
+            {... this.getScrollbarProps()}
+            {... this.props} />
         </div>
       );
     }
