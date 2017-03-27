@@ -1,5 +1,5 @@
 'use strict';
-var React = require('react/addons');
+var React = require('react');
 var _ = require('lodash-node');
 
 var ScrollbarMixin = {
@@ -63,7 +63,7 @@ var ScrollbarMixin = {
       return {};
     }
 
-    var element = this.refs.scrollableContent.getDOMNode();
+    var element = this.refs.scrollableContent;
 
     return {
       horizontal: this.getContentDimensions().width / element.scrollWidth,
@@ -91,7 +91,7 @@ var ScrollbarMixin = {
       return {};
     }
 
-    var element = this.refs.scrollableContent.getDOMNode();
+    var element = this.refs.scrollableContent;
 
     return {
       height: element.clientHeight,
@@ -182,7 +182,7 @@ var ScrollbarMixin = {
     var initialScrollPosition = this.state.initialScroll[origin];
 
     if (this.state.initialMovement) {
-      initialScrollPosition = origin === 'left' ? this.refs.scrollableContent.getDOMNode().scrollLeft : this.refs.scrollableContent.getDOMNode().scrollTop;
+      initialScrollPosition = origin === 'left' ? this.refs.scrollableContent.scrollLeft : this.refs.scrollableContent.scrollTop;
       var initialScroll = _.extend({}, this.state.initialScroll);
       initialScroll[origin] = initialScrollPosition;
 
@@ -203,9 +203,9 @@ var ScrollbarMixin = {
     };
 
     if (this.state.axis === 'x') {
-      this.refs.scrollableContent.getDOMNode().scrollLeft = initialScrollPosition + scaledMovement.x;
+      this.refs.scrollableContent.scrollLeft = initialScrollPosition + scaledMovement.x;
     } else {
-      this.refs.scrollableContent.getDOMNode().scrollTop = initialScrollPosition + scaledMovement.y;
+      this.refs.scrollableContent.scrollTop = initialScrollPosition + scaledMovement.y;
     }
   },
 
@@ -232,12 +232,10 @@ var ScrollbarMixin = {
   },
 
   containerClass: function() { // TODO: rename getStyle or something
-    var cx = React.addons.classSet;
-
-    return cx({
-      'ScrollbarContainer': true,
-      'ScrollbarContainer--scrolling': this.state.scrolling
-    });
+    return [
+      'ScrollbarContainer',
+      this.state.scrolling ? 'ScrollbarContainer--scrolling' : ''
+    ].join(' ');
   },
 
   scrollbarContainerStyle: function() {
